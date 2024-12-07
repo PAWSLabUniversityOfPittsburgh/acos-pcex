@@ -1,7 +1,7 @@
 $(document).ready(function () {
 	$('#check-button').click(pcex.check);
-	$('#start-animation-button').click(pcex.startAnimation);
-	$('#stop-animation-button').click(pcex.stopAnimation);
+	$('#start-animation-button').click(pcex.startAnimationClick);
+	$('#stop-animation-button').click(pcex.stopAnimationClick);
 	$('#animation-next-button').click(pcex.animationNext);
 	$('#animation-back-button').click(pcex.animationBack);
 
@@ -23,6 +23,7 @@ $(document).ready(function () {
 	$('#close-hint-button').click(function () {
 		pcex.clearHint();
 		pcex.clearAllWrongBlankLinesHighlight();
+		pcex.trackClearHint()
 	});
 
 	pcex.parse();
@@ -76,10 +77,10 @@ $(document).ready(function () {
 
 var pcex = {
 	//For Reporting
-	// userCredentials: null,
 	activityType: null,
 	umApplicationId: null,
-	// pcexTrackingID: null,
+	pcexTrackingID: null,
+	tracking_data:null,
 
 	jsonData: null,
 	scrollLineLimit: 20,
@@ -115,18 +116,9 @@ var pcex = {
 	droppedTileIndentation: null,
 
 	parse: function (language, setName) {
-		// var usr = url('?usr');
-		// var grp = url('?grp');
-		// var sid = url('?sid');
-		// var language = url('?lang');
-		// var setName = url('?set');
-		// var svc = url('?svc') ? url('?svc') : 'masterygrids';  //SVC is an optional parameter
-
-		// const load = url('?load');
 		const lti_rsrc = url('?resource_name');
 		const html_rsrc = url('-1');
-		const id = (lti_rsrc || html_rsrc).split('__', 2)[0];
-		// const api = 'http://adapt2.sis.pitt.edu/pcex-authoring/api/hub/';
+		const id = (lti_rsrc || html_rsrc).split('__', 2)[1];
 		const api = 'https://proxy.personalized-learning.org/pcex-authoring/api/hub/';
 		const load = `${api}${id}?_t=${new Date().getTime()}`;
 		if (load) $.ajax({
@@ -140,22 +132,10 @@ var pcex = {
 				pcex.goalSolvedStates = new Array(pcex.numberOfGoals);
 				pcex.goalShowResultStates = new Array(pcex.numberOfGoals);
 				pcex.setLanguageSettings(pcex.jsonData.language);
-				// pcex.setUserCredentials(usr, grp, sid, svc);
 				pcex.init();
 			}
 		});
 	},
-
-	// setUserCredentials: function (usr, grp, sid, svc) {
-	// 	if (usr && grp && sid) {
-	// 		pcex.userCredentials = {
-	// 			user: usr,
-	// 			group: grp,
-	// 			sessionId: sid,
-	// 			svc: svc
-	// 		};
-	// 	}
-	// },
 
 	setLanguageSettings: function (language) {
 		pcex.isPython = language === 'PYTHON';
@@ -423,8 +403,6 @@ var pcex = {
 
 		$(tilePre).data('tile', tile).draggable({
 			start: function () {
-				// TODO: log event?! console.log('distractor dragged');
-
 				$(this).addClass('tile-dragging-start');
 				$(this).removeClass('tile-blank-line');
 				$('.code-blank-line').filter(function () { return !$(this).hasClass('tile-dragged') }).addClass('ui-state-highlight');
@@ -433,8 +411,6 @@ var pcex = {
 
 			},
 			stop: function () {
-				// TODO: log event?! console.log('distractor dropped');
-
 				$(this).removeClass('tile-dragging-start');
 				$(this).addClass('tile-blank-line');
 				$('.code-blank-line').removeClass('ui-state-highlight');
@@ -461,8 +437,6 @@ var pcex = {
 	},
 
 	handleTileDrop: function (target, draggable) {
-		// TODO: log event?! console.log('tile dropped');
-
 		var tile = $(draggable).data('tile');
 		var blankLineId = $(target).attr('id');
 		var blankLineIndex = $.inArray(blankLineId, pcex.blankLineIDs);
@@ -532,6 +506,8 @@ var pcex = {
 		pcex.hideCheckCollapsible();
 		pcex.clearAllWrongBlankLinesHighlight();
 		pcex.clearHint();
+
+		pcex.trackTileDrop(tile.line, blankLineId, blankLineIndex)
 	},
 
 	makeCheckButtonEnabledIfTilesFilled: function () {
@@ -549,6 +525,8 @@ var pcex = {
 		pcex.droppedTileIndentation[blankLineIndex]++;
 
 		$('#decrease-indent-button-' + blankLineIndex).attr('disabled', false);
+
+		pcex.trackIndentationChange(blankLineIndex, true, pcex.droppedTileIndentation[blankLineIndex])
 	},
 
 	handleDecreaseIndentButtonClicked: function () {
@@ -566,6 +544,8 @@ var pcex = {
 				$(this).attr('disabled', true);
 			}
 		}
+
+		pcex.trackIndentationChange(blankLineIndex, false, pcex.droppedTileIndentation[blankLineIndex])
 	},
 
 	handleIndentButtonClicked: function (blankLineIndex) {
@@ -621,8 +601,6 @@ var pcex = {
 	},
 
 	next: function () {
-		// TODO: log event?! console.log('next example/challenge clicked');
-
 		if (pcex.currentGoalIndex + 1 < pcex.numberOfGoals) {
 			$('#back-button').attr('disabled', false).addClass('waves-effect waves-light').show();
 
@@ -646,8 +624,6 @@ var pcex = {
 	},
 
 	back: function () {
-		// TODO: log event?! console.log('back example/challenge clicked');
-
 		if (pcex.currentGoalIndex > 0) {
 			pcex.saveGoalState();
 
@@ -724,8 +700,6 @@ var pcex = {
 	},
 
 	check: function () {
-		// TODO: log event?! console.log('check challenge clicked');
-
 		var result = true;
 		var correctTiles = [];
 		var wrongTiles = [];
@@ -834,7 +808,6 @@ var pcex = {
 				$('#show-message-details').hide();
 				pcex.showCorrect();
 
-				pcex.reportCheckResultToUm(true);
 				pcex.trackCheckResult('correct', 1, pcex.numberOfTrials, correctLineNumbers, incorrectLineNumbers, wrongAnswers);
 
 				pcex.numberOfTrials = 0;
@@ -850,7 +823,6 @@ var pcex = {
 				$('#show-message-details').hide();
 				$('#clear-button').show();
 
-				pcex.reportCheckResultToUm(false);
 				pcex.trackCheckResult('indentation_err', 0, pcex.numberOfTrials, correctLineNumbers, incorrectIndentedLineNumbers, wrongAnswers);
 			}
 		} else {
@@ -935,7 +907,6 @@ var pcex = {
 			$('#shortcut-next-button').hide();
 			$('#clear-button').show();
 
-			pcex.reportCheckResultToUm(false);
 		}
 
 
@@ -1004,8 +975,6 @@ var pcex = {
 	},
 
 	clearIncorrectAnswer: function () {
-		// TODO: log event?! console.log('clear incorrect answer clicked');
-
 		$('.code-blank-line-error').removeClass().html("\n").addClass("code-blank-line ui-state-default");
 
 		$.each(pcex.hiddenTiles, function (i, tile) {
@@ -1024,6 +993,8 @@ var pcex = {
 		$('#modal-check-result-message').empty();
 		$('#modal-current-output-message').empty();
 		$('#modal-expected-output-message').empty();
+
+		pcex.trackClearIncorrectAnswer()
 
 	},
 
@@ -1063,8 +1034,6 @@ var pcex = {
 	},
 
 	showResultMessageDetails: function () {
-		// TODO: log event?! console.log('show message details clicked');
-
 		$('#result-modal').modal('open');
 
 		$('#result-modal').draggable({
@@ -1232,11 +1201,11 @@ var pcex = {
 		$('#explanation-div').hide();
 	},
 
-	startAnimation: function (helpButtonClicked) {
-		if (typeof helpButtonClicked == 'object') {
-			// TODO: log event?! console.log('explain program clicked');
-		}
+	startAnimationClick: function(event) {
+		pcex.startAnimation(false)
+	},
 
+	startAnimation: function (helpButtonClicked) {
 		pcex.animationStarted = true;
 		$('#start-animation-button').hide();
 		$('#start-animation-shortcut-button').hide();
@@ -1284,6 +1253,10 @@ var pcex = {
 		return wrapper;
 	},
 
+	stopAnimationClick: function() {
+		pcex.stopAnimation()
+	},
+
 	stopAnimation: function () {
 		$('#start-animation-button').show();
 		$('#stop-animation-button').hide();
@@ -1301,8 +1274,6 @@ var pcex = {
 	},
 
 	animationNext: function () {
-		// TODO: log event?! console.log('next explanation clicked');
-
 		if (pcex.animationStepIndex > -1) {
 			var line = pcex.linesWithExplanation[pcex.animationStepIndex];
 			$('#line_' + line.id).removeClass('animation-highlight blink-me');
@@ -1315,8 +1286,6 @@ var pcex = {
 	},
 
 	animationBack: function () {
-		// TODO: log event?! console.log('back explanation clicked');
-
 		if (pcex.animationStepIndex > 0) {
 			var line = pcex.linesWithExplanation[pcex.animationStepIndex];
 			$('#line_' + line.id).removeClass('animation-highlight blink-me');
@@ -1341,14 +1310,11 @@ var pcex = {
 			var helpContent = pcex.createHelpWindowContent(line);
 			$('#explanation').append(helpContent).show();
 
-			pcex.reportLineClicksToUm(line.number);
 			if (!helpButtonClicked) { //helpButton clicks tracked separately
 				pcex.trackExplanation('sequential', 1, line.number);
 			}
 
 			$(helpContent).find("a[id^='help_back']").click(function () {
-				// TODO: log event?! console.log('additional explanation back clicked');
-
 				var line = pcex.linesWithExplanation[pcex.animationStepIndex];
 				$('#line_' + line.id).removeClass('blink-me');
 				var comments = $(this).parent().find('p');
@@ -1372,8 +1338,6 @@ var pcex = {
 				return $('#line_' + line.id).addClass('blink-me');
 			});
 			$(helpContent).find("a[id^='help_next']").click(function () {
-				// TODO: log event?! console.log('additional explanation next clicked');
-
 				var line = pcex.linesWithExplanation[pcex.animationStepIndex];
 				$('#line_' + line.id).removeClass('blink-me');
 				var comments = $(this).parent().find('p');
@@ -1430,8 +1394,6 @@ var pcex = {
 	},
 
 	showHint: function () {
-		// TODO: log event?! console.log('show hint clicked');
-
 		var relatedBlankLine;
 		var relatedBlankLineIndex;
 		var showIndentationHint = false;
@@ -1494,8 +1456,6 @@ var pcex = {
 	},
 
 	handleHelpButtonClicked: function (element) {
-		// TODO: log event?! console.log('help button clicked');
-
 		pcex.stopAnimation();
 		var clickedHelpButtonIndex = -1;
 		var clickedHelpButtonLindeNumber = -1;
@@ -1549,37 +1509,37 @@ var pcex = {
 	},
 
 	trackUserActivity: function () {
-		// if (pcex.userCredentials) {
-		// var trackingData = {
-		// 	user_id: pcex.userCredentials.user,
-		// 	group_id: pcex.userCredentials.group,
-		// 	session_id: pcex.userCredentials.sessionId,
-		// 	activity_set_name: pcex.currentGoal.activityName,
-		// 	activity_type: pcex.activityType,
-		// 	goal_name: pcex.currentGoal.fileName
-		// }
+		if(!pcex.pcexTrackingID) {
+			pcex.pcexTrackingID = uuid.v4()
+		}
+		
+		var trackingData = {
+			tracking_id: pcex.pcexTrackingID,
+			activity_set_name: pcex.currentGoal.activityName,
+			activity_type: pcex.activityType,
+			goal_name: pcex.currentGoal.fileName,
+			goal_index: pcex.currentGoalIndex,
+			tiles: pcex.getTilesTrackingInfo()
+		}
 
-		// pcex.reportToPcexServer("/track/activity", trackingData,
-		// 	function (data) {
-		// 		//called when successful
-		// 		if (!data.error) {
-		// 			pcex.pcexTrackingID = data.result[0].tracking_id;
-		// 		} else {
-		// 			pcex.pcexTrackingID = null;
-		// 		}
-		// 	},
+		pcex.tracking_data = trackingData
 
-		// 	function (error) {
-		// 		pcex.pcexTrackingID = null;
-		// 	}
-		// );
-		// }
+		pcex.reportEvent("load-activity");
+		
+	},
+
+	getTilesTrackingInfo: function() {
+		return pcex.tiles.map(function(e) {
+			var tile_data = $(e).data('tile')
+
+			return {'tile_id': tile_data.id,
+				   'tile_content':tile_data.line.content.trim(),
+				   'is_distractor': tile_data.line.number == 0}
+		})
 	},
 
 	trackCheckResult: function (resultType, result, numberOfTrials, correctLineNumbers, incorrectLineNumbers, wrongAnswers) {
-		// if (pcex.pcexTrackingID) {
 		var trackingData = {
-			// tracking_id: pcex.pcexTrackingID,
 			result_type: resultType,
 			correct_line_numbers: correctLineNumbers.toString(),
 			incorrect_line_numbers: incorrectLineNumbers.toString(),
@@ -1588,123 +1548,75 @@ var pcex = {
 			result: result
 		}
 
-		pcex.reportToPcexServer("/track/result", trackingData);
-		// }
+		pcex.reportEvent("result", trackingData);
 	},
 
 	trackExplanation: function (explanationType, explanationLevel, lineNumber) {
-		// if (pcex.pcexTrackingID) {
 		var trackingData = {
-			// tracking_id: pcex.pcexTrackingID,
 			explanation_type: explanationType,
 			explanation_level: explanationLevel,
 			line_number: lineNumber
 		}
 
-		pcex.reportToPcexServer("/track/explanation", trackingData);
-		// }
+		pcex.reportEvent("explanation", trackingData);
 	},
 
 	trackHint: function (hintType, lineNumber) {
-		// if (pcex.pcexTrackingID) {
 		var trackingData = {
-			// tracking_id: pcex.pcexTrackingID,
 			hint_type: hintType,
 			line_number: lineNumber
 		}
 
-		pcex.reportToPcexServer("/track/hint", trackingData);
-		// }
+		pcex.reportEvent("hint-show", trackingData);
 	},
 
-	reportToPcexServer: function (apiPath, trackingData, successFunc, errorFunc) {
-		trackingData = {
-			apiPath,
+	trackClearHint: function() {
+		pcex.reportEvent("hint-hide");
+	},
+
+	trackTileDrop: function(tile, blankLineId, blankLineIndex) {
+		var trackingData = {
+			tile_content: tile.content.trim(),
+			tile_id: tile.id,
+			blank_line_id: blankLineId,
+			blank_line_index: blankLineIndex
+		}
+
+		pcex.reportEvent("tile-drop", trackingData);
+	},
+
+	trackIndentationChange: function(blankLineIndex, increased, indentationLevel) {
+		var trackingData = {
+			blank_line_index: blankLineIndex,
+			indentation_increase: increased,
+			indentation_level: indentationLevel,
+		}
+		
+		pcex.reportEvent("indentation-change", trackingData);
+	},
+
+	trackClearIncorrectAnswer: function() {
+		pcex.reportEvent("clear-answer");
+	},
+
+	reportEvent: function (event_type, trackingData) {
+		event_data = {
+			event_type,
+			...pcex.tracking_data,
 			...trackingData,
+		
 		};
 
-		ACOS.sendEvent('log', trackingData);
-		// $.ajax({
-		// 	url: "http://pawscomp2.sis.pitt.edu/pcex/api" + apiPath,
-		// 	type: "POST",
-		// 	dataType: "json", // expected format for response
-		// 	contentType: "application/json; charset=utf-8", // send as JSON
-		// 	data: JSON.stringify({ trackingData }),
-		// 	success: successFunc,
-		// 	error: errorFunc
-		// });
-	},
+		ACOS.sendEvent('log', event_data);
 
-	reportCheckResultToUm: function (correct) {
-		var result = correct ? 1 : 0;
-		var sub = pcex.getCurrentGoalFileNameWithoutExtensions();
-		pcex.reportToUM({
-			app: pcex.umApplicationId,
-			act: "PCEX_Challenge",
-			sub: sub,
-			res: result,
-		});
-	},
-
-	reportLineClicksToUm: function (lineNumber) {
-		if (pcex.currentGoal.fullyWorkedOut) {
-			var exampleFileName = pcex.getCurrentGoalFileNameWithoutExtensions();
-			pcex.reportToUM({
-				"app": pcex.umApplicationId,
-				"act": exampleFileName,
-				"sub": lineNumber,
-				"res": -1
-			});
+		if(event_type == "result") {
+			ACOS.sendEvent('grade', {'points': trackingData.result, 
+									 'max_points': 1, 
+									 'event_data': event_data}); 
 		}
-	},
-
-	reportToUM: function (umParams) {
-		// if (pcex.userCredentials) {
-		// umParams += "&usr=" + pcex.userCredentials.user +
-		// 	"&grp=" + pcex.userCredentials.group +
-		// 	"&sid=" + pcex.userCredentials.sessionId +
-		// 	"&svc=" + pcex.userCredentials.svc;
-
-		ACOS.sendEvent('log', umParams);
-		// $.ajax({
-		// 	url: 'http://pawscomp2.sis.pitt.edu/cbum/um?' + umParams,
-		// 	type: "GET",
-		// 	complete: function () {
-		// 		//called when complete
-		// 	},
-
-		// 	success: function () {
-		// 		//console.log('reported to um');
-		// 	},
-
-		// 	error: function () {
-		// 		//console.log('um report error');
-		// 	},
-		// });
-
-		//pcex.reportToUMThroughPCEX(umParams);
-		// }
 	},
 
 	getCurrentGoalFileNameWithoutExtensions: function () {
 		return pcex.currentGoal.fileName.replace(".java", "").replace(".py", "");
 	},
-
-	// reportToUMThroughPCEX: function (umParams) {
-	// 	$.ajax({
-	// 		url: 'http://pawscomp2.sis.pitt.edu/pcex/api/reportUM/' + umParams,
-	// 		type: "GET",
-	// 		complete: function () {
-	// 			//called when complete
-	// 		},
-
-	// 		success: function () {
-	// 			//console.log('reported to um');
-	// 		},
-
-	// 		error: function () {
-	// 			//console.log('um report error');
-	// 		},
-	// 	});
-	// },
 };
