@@ -1509,12 +1509,8 @@ var pcex = {
 	},
 
 	trackUserActivity: function () {
-		if(!pcex.pcexTrackingID) {
-			pcex.pcexTrackingID = uuid.v4()
-		}
-		
 		var trackingData = {
-			tracking_id: pcex.pcexTrackingID,
+			tracking_id:  uuid.v4(),
 			activity_set_name: pcex.currentGoal.activityName,
 			activity_type: pcex.activityType,
 			goal_name: pcex.currentGoal.fileName,
@@ -1524,6 +1520,11 @@ var pcex = {
 
 		pcex.tracking_data = trackingData
 
+		if(!pcex.pcexTrackingID) {
+			pcex.pcexTrackingID = trackingData.tracking_id
+			pcex.reportEvent("initial-load"); 
+		}
+		
 		pcex.reportEvent("load-activity");
 		
 	},
@@ -1607,13 +1608,22 @@ var pcex = {
 		
 		};
 
-		ACOS.sendEvent('log', event_data);
+		if(event_type == "initial-load") {
+			ACOS.sendEvent('content-load', event_data,pcex.load_state);
+		} else {
+			ACOS.sendEvent('log', event_data);
+		}
 
 		if(event_type == "result") {
 			ACOS.sendEvent('grade', {'points': trackingData.result, 
 									 'max_points': 1, 
 									 'event_data': event_data}); 
 		}
+	},
+
+	load_state: function(state) {
+		//TODO: Implement state load
+		console.log("State load is not supported:")
 	},
 
 	getCurrentGoalFileNameWithoutExtensions: function () {
