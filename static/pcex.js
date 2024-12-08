@@ -23,7 +23,7 @@ $(document).ready(function () {
 	$('#close-hint-button').click(function () {
 		pcex.clearHint();
 		pcex.clearAllWrongBlankLinesHighlight();
-		pcex.trackClearHint()
+		pcex.trackClearHint();
 	});
 
 	pcex.parse();
@@ -80,7 +80,7 @@ var pcex = {
 	activityType: null,
 	umApplicationId: null,
 	pcexTrackingID: null,
-	tracking_data:null,
+	tracking_data: null,
 
 	jsonData: null,
 	scrollLineLimit: 20,
@@ -121,6 +121,7 @@ var pcex = {
 		const id = (lti_rsrc || html_rsrc).split('__', 2)[1];
 		const api = 'https://proxy.personalized-learning.org/pcex-authoring/api/hub/';
 		const load = `${api}${id}?_t=${new Date().getTime()}`;
+
 		if (load) $.ajax({
 			url: load,
 			dataType: 'json',
@@ -1201,7 +1202,7 @@ var pcex = {
 		$('#explanation-div').hide();
 	},
 
-	startAnimationClick: function(event) {
+	startAnimationClick: function (event) {
 		pcex.startAnimation(false)
 	},
 
@@ -1253,7 +1254,7 @@ var pcex = {
 		return wrapper;
 	},
 
-	stopAnimationClick: function() {
+	stopAnimationClick: function () {
 		pcex.stopAnimation()
 	},
 
@@ -1509,12 +1510,8 @@ var pcex = {
 	},
 
 	trackUserActivity: function () {
-		if(!pcex.pcexTrackingID) {
-			pcex.pcexTrackingID = uuid.v4()
-		}
-		
 		var trackingData = {
-			tracking_id: pcex.pcexTrackingID,
+			tracking_id: uuid.v4(),
 			activity_set_name: pcex.currentGoal.activityName,
 			activity_type: pcex.activityType,
 			goal_name: pcex.currentGoal.fileName,
@@ -1524,17 +1521,24 @@ var pcex = {
 
 		pcex.tracking_data = trackingData
 
+		if (!pcex.pcexTrackingID) {
+			pcex.pcexTrackingID = trackingData.tracking_id
+			pcex.reportEvent("initial-load");
+		}
+
 		pcex.reportEvent("load-activity");
-		
+
 	},
 
-	getTilesTrackingInfo: function() {
-		return pcex.tiles.map(function(e) {
+	getTilesTrackingInfo: function () {
+		return pcex.tiles.map(function (e) {
 			var tile_data = $(e).data('tile')
 
-			return {'tile_id': tile_data.id,
-				   'tile_content':tile_data.line.content.trim(),
-				   'is_distractor': tile_data.line.number == 0}
+			return {
+				'tile_id': tile_data.id,
+				'tile_content': tile_data.line.content.trim(),
+				'is_distractor': tile_data.line.number == 0
+			}
 		})
 	},
 
@@ -1570,11 +1574,11 @@ var pcex = {
 		pcex.reportEvent("hint-show", trackingData);
 	},
 
-	trackClearHint: function() {
+	trackClearHint: function () {
 		pcex.reportEvent("hint-hide");
 	},
 
-	trackTileDrop: function(tile, blankLineId, blankLineIndex) {
+	trackTileDrop: function (tile, blankLineId, blankLineIndex) {
 		var trackingData = {
 			tile_content: tile.content.trim(),
 			tile_id: tile.id,
@@ -1585,17 +1589,17 @@ var pcex = {
 		pcex.reportEvent("tile-drop", trackingData);
 	},
 
-	trackIndentationChange: function(blankLineIndex, increased, indentationLevel) {
+	trackIndentationChange: function (blankLineIndex, increased, indentationLevel) {
 		var trackingData = {
 			blank_line_index: blankLineIndex,
 			indentation_increase: increased,
 			indentation_level: indentationLevel,
 		}
-		
+
 		pcex.reportEvent("indentation-change", trackingData);
 	},
 
-	trackClearIncorrectAnswer: function() {
+	trackClearIncorrectAnswer: function () {
 		pcex.reportEvent("clear-answer");
 	},
 
@@ -1604,16 +1608,26 @@ var pcex = {
 			event_type,
 			...pcex.tracking_data,
 			...trackingData,
-		
 		};
 
-		ACOS.sendEvent('log', event_data);
-
-		if(event_type == "result") {
-			ACOS.sendEvent('grade', {'points': trackingData.result, 
-									 'max_points': 1, 
-									 'event_data': event_data}); 
+		if (event_type == "initial-load") {
+			ACOS.sendEvent('content-load', event_data, pcex.load_state);
+		} else {
+			ACOS.sendEvent('log', event_data);
 		}
+
+		if (event_type == "result") {
+			ACOS.sendEvent('grade', {
+				'points': trackingData.result,
+				'max_points': 1,
+				'event_data': event_data
+			});
+		}
+	},
+
+	load_state: function (state) {
+		//TODO: Implement state load
+		console.log("State load is not supported:")
 	},
 
 	getCurrentGoalFileNameWithoutExtensions: function () {
