@@ -48,7 +48,8 @@
 	width: 21px;
     height: 21px;
     line-height: 21px;
-	/* margin-left: 5px; */
+	margin-right: 5px;
+	background-color: red;
 }
 
 .linenumber {
@@ -149,10 +150,10 @@
 	color: white;
 }
 
-#goal_column {
+/* #goal_column {
 	margin-top: 10px;
 	margin-left: 10px;
-}
+} */
 
 h4, h5, h6 {
 	margin-top: 0px;
@@ -332,3 +333,10 @@ h4, h5, h6 {
 	padding: 0 0.5rem !important;
 }
 
+.sail-content .btn-floating {
+	background-color: rgb(47, 127, 111);
+}
+
+.sail-content .line {
+	line-height: 24px;
+}

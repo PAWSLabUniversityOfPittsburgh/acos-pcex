@@ -25,6 +25,12 @@ $(document).ready(function () {
 		pcex.clearAllWrongBlankLinesHighlight();
 		pcex.trackClearHint();
 	});
+	
+	// use specific styles for the page
+	const bodyStyleClass = url('?style-class');
+	if (bodyStyleClass) {
+		document.body.classList.add(bodyStyleClass);
+	}
 
 	pcex.parse();
 
@@ -244,6 +250,12 @@ var pcex = {
 
 		$("a[id^='help_']").unbind('click').click(pcex.handleHelpButtonClicked);
 		pcex.trackUserActivity();
+
+		parent.postMessage({ 
+			messageType: "resize", 
+			iframeHeight: document.body.scrollHeight + 24,  
+			iframeUrl: window.location.href 
+		}, "*");
 	},
 
 	updateNextButtonText: function () {
@@ -287,7 +299,7 @@ var pcex = {
 
 			if (line.commentList.length > 0) {
 				helpButton = document.createElement('a');
-				$(helpButton).addClass('btn-floating btn-small waves-effect waves-light red').attr('id', 'help_' + line.id);
+				$(helpButton).addClass('btn-floating btn-small waves-effect waves-light').attr('id', 'help_' + line.id);
 
 				var helpIcon = document.createElement('i');
 				helpIcon.setAttribute("class", 'material-icons');
@@ -302,7 +314,7 @@ var pcex = {
 
 				if (pcex.currentGoal.fullyWorkedOut == false) {
 					$(helpButton).hide();
-					lineNumberSpan.style.marginLeft = '21px';
+					lineNumberSpan.style.marginLeft = '26px';
 				}
 			}
 
@@ -322,7 +334,7 @@ var pcex = {
 			}
 		} else {
 			lineContent.append(indentedCode);
-      		if (!helpButton) lineNumberSpan.style.marginLeft = '21px';
+      		if (!helpButton) lineNumberSpan.style.marginLeft = '26px';
 		}
 		
 		// patch: post-comment line will be highlighted as comment as well
