@@ -59,11 +59,14 @@
 					<div id="explanation-div" class="card" style="display: none;">
 						<div id='explanation-title' class="card-header secondary-color white-text ">
 							<span class='hidden-md-down'>Explanations</span>
-							<a id="animation-back-button" class="waves-effect waves-light btn btn-sm"
-								style="display: none;" disabled='true'><i
-									class="material-icons left">undo</i>Previous</a>
-							<a id="animation-next-button" class="waves-effect waves-light btn btn-sm"
-								style="display: none;"><i class="material-icons right">redo</i>Next</a>
+							<a id="animation-back-button" class="waves-effect waves-light btn btn-sm" style="display: none;" disabled='true'>
+								<i class="material-icons left">arrow_upward</i>
+								Line above
+							</a>
+							<a id="animation-next-button" class="waves-effect waves-light btn btn-sm" style="display: none;">
+								<i class="material-icons right">arrow_downward</i>
+								Line below
+							</a>
 						</div>
 						<div id="explanation" class="card-block">
 						</div>
@@ -78,11 +81,14 @@
 						</div>
 					</div>
 					<div id="drag-tile-div" class="card" style="display: none;">
-						<div id="drag-tile-title" class="card-header secondary-color white-text">Drag a tile from
-							here
+						<div id="drag-tile-title" class="card-header secondary-color white-text">
+							<span>Drag a tile from here</span>
 							<a id="check-button" class="waves-effect waves-light btn btn-challenge" disabled='true'
 								data-toggle="collapse" data-target="#checkCollapsible" aria-expanded="false"
-								style="display: none;"><i class="material-icons right">play_circle_outline</i>CHECK</a>
+								style="display: none;">
+								<i class="material-icons right">play_circle_outline</i>
+								<span>CHECK</span>
+							</a>
 						</div>
 
 						<div id="tiles" class="card-block">

@@ -310,11 +310,11 @@ var pcex = {
 				});
 
 				helpButton.appendChild(helpIcon);
-				lineContent.prepend(helpButton);
+				lineContent.append(helpButton);
 
 				if (pcex.currentGoal.fullyWorkedOut == false) {
 					$(helpButton).hide();
-					lineNumberSpan.style.marginLeft = '26px';
+					// lineNumberSpan.style.marginLeft = '26px';
 				}
 			}
 
@@ -334,7 +334,7 @@ var pcex = {
 			}
 		} else {
 			lineContent.append(indentedCode);
-      		if (!helpButton) lineNumberSpan.style.marginLeft = '26px';
+      		// if (!helpButton) lineNumberSpan.style.marginLeft = '26px';
 		}
 		
 		// patch: post-comment line will be highlighted as comment as well
@@ -1127,7 +1127,7 @@ var pcex = {
 		$.each(pcex.currentGoal.lineList, function (i, line) {
 			const helpBtn = $("#help_" + line.id);
 			helpBtn.unbind('click').click(pcex.handleHelpButtonClicked).show();
-      		helpBtn.next().css('margin-left', '0px');
+      		// helpBtn.next().css('margin-left', '0px');
 		});
 
 		pcex.higlightCorrectBlankLines(pcex.blankLineIDs);
@@ -1252,7 +1252,7 @@ var pcex = {
 
 		if (!disableNavigation && line.commentList.length > 1) {
 			var helpBackButton = document.createElement('a');
-			$(helpBackButton).attr('id', 'help_back_line_' + line.id).addClass('btn btn-info btn-sm').html('Previous').attr('disabled', true);
+			$(helpBackButton).attr('id', 'help_back_line_' + line.id).addClass('btn btn-info btn-sm').html('Back').attr('disabled', true);
 			$(helpDiv).append(helpBackButton);
 
 			var helpNextButton = document.createElement('a');
