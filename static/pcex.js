@@ -921,9 +921,7 @@ var pcex = {
 			$('#check-result-block').removeClass('correct').addClass('wrong');
 			$('#shortcut-next-button').hide();
 			$('#clear-button').show();
-
 		}
-
 
 		$('#check-button').attr("disabled", true);
 
@@ -937,7 +935,7 @@ var pcex = {
 			}
 		}
 
-		pcex.resizeIframe();
+		setTimeout(() => pcex.resizeIframe(), 300);
 	},
 
 	appendIncorrectResultMessage: function (incorrectLines, incorrectLineNumbers, incorrectIndentedLines, incorrectIndentedLineNumbers) {
