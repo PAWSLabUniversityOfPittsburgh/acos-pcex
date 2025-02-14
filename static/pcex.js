@@ -63,7 +63,6 @@ $(document).ready(function () {
 				}
 			}
 		}
-
 	});
 
 	$('.modal').modal({
@@ -120,6 +119,14 @@ var pcex = {
 	correctBlankLineIDs: [],
 	indentedIncorrectBlanLineIDs: [],
 	droppedTileIndentation: null,
+
+	resizeIframe: function () { 
+		parent.postMessage({ 
+			messageType: "resize", 
+			iframeHeight: document.body.scrollHeight + 24,  
+			iframeUrl: window.location.href 
+		}, "*");
+	},
 
 	parse: function (language, setName) {
 		const lti_rsrc = url('?resource_name');
@@ -251,11 +258,7 @@ var pcex = {
 		$("a[id^='help_']").unbind('click').click(pcex.handleHelpButtonClicked);
 		pcex.trackUserActivity();
 
-		parent.postMessage({ 
-			messageType: "resize", 
-			iframeHeight: document.body.scrollHeight + 24,  
-			iframeUrl: window.location.href 
-		}, "*");
+		pcex.resizeIframe();
 	},
 
 	updateNextButtonText: function () {
@@ -933,6 +936,8 @@ var pcex = {
 				$('#show-hint-button').show();
 			}
 		}
+
+		pcex.resizeIframe();
 	},
 
 	appendIncorrectResultMessage: function (incorrectLines, incorrectLineNumbers, incorrectIndentedLines, incorrectIndentedLineNumbers) {
@@ -1007,6 +1012,7 @@ var pcex = {
 
 		pcex.trackClearIncorrectAnswer()
 
+		pcex.resizeIframe();
 	},
 
 	constructUserInputPartFromProgramOutput: function (output) {
@@ -1053,6 +1059,7 @@ var pcex = {
 		});
 
 		pcex.trackHint('evaluation_details', 0);
+		pcex.resizeIframe();
 	},
 
 	higlightCorrectBlankLines: function (blankLineIds) {
@@ -1106,6 +1113,8 @@ var pcex = {
 		pcex.activityType = 'ch_not_solved';
 		pcex.trackUserActivity();
 		pcex.showCorrect();
+
+		pcex.resizeIframe();
 	},
 
 	fixBrokenHelpIcons() {
@@ -1284,6 +1293,8 @@ var pcex = {
 
 		pcex.animationStepIndex = 0;
 		pcex.animationStarted = false;
+
+		pcex.resizeIframe();
 	},
 
 	animationNext: function () {
@@ -1372,7 +1383,6 @@ var pcex = {
 				pcex.trackExplanation('sequential', index + 1, line.number);
 
 				return $('#line_' + line.id).addClass('blink-me');
-
 			});
 
 			var lineOffsetPosition = $('#line_' + line.id).offset().top + 20;
@@ -1390,7 +1400,6 @@ var pcex = {
 				$(window).scrollTop(lineRelativePosition);
 			}
 
-
 			if (pcex.animationStepIndex == 0) {
 				$('#animation-back-button').attr('disabled', true);
 			} else {
@@ -1402,8 +1411,9 @@ var pcex = {
 			} else {
 				$('#animation-next-button').attr('disabled', false);
 			}
-		}
 
+			pcex.resizeIframe();
+		}
 	},
 
 	showHint: function () {
@@ -1458,6 +1468,8 @@ var pcex = {
 		$('#hint').append(hintContent);
 		$('#hint-div').show();
 		pcex.hideCheckCollapsible();
+
+		pcex.resizeIframe();
 	},
 
 	clearHint: function () {
@@ -1466,6 +1478,8 @@ var pcex = {
 		$('#hint-div').hide();
 
 		pcex.makeCheckButtonEnabledIfTilesFilled();
+
+		pcex.resizeIframe();
 	},
 
 	handleHelpButtonClicked: function (element) {
