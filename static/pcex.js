@@ -25,7 +25,7 @@ $(document).ready(function () {
 		pcex.clearAllWrongBlankLinesHighlight();
 		pcex.trackClearHint();
 	});
-	
+
 	// use specific styles for the page
 	const bodyStyleClass = url('?style-class');
 	if (bodyStyleClass) {
@@ -120,11 +120,18 @@ var pcex = {
 	indentedIncorrectBlanLineIDs: [],
 	droppedTileIndentation: null,
 
-	resizeIframe: function () { 
-		parent.postMessage({ 
-			messageType: "resize", 
-			iframeHeight: document.body.scrollHeight + 24,  
-			iframeUrl: window.location.href 
+	resizeIframe: function () {
+		parent.postMessage({
+			messageType: "resize",
+			iframeHeight: document.body.scrollHeight + 24,
+			iframeUrl: window.location.href
+		}, "*");
+
+		parent.postMessage({
+			subject: "lti.frameResize",
+			message_id: uuid.v4(),
+			height: document.body.scrollHeight + 24,
+			width: document.body.scrollWidth + 24,
 		}, "*");
 	},
 
@@ -337,9 +344,9 @@ var pcex = {
 			}
 		} else {
 			lineContent.append(indentedCode);
-      		// if (!helpButton) lineNumberSpan.style.marginLeft = '26px';
+			// if (!helpButton) lineNumberSpan.style.marginLeft = '26px';
 		}
-		
+
 		// patch: post-comment line will be highlighted as comment as well
 		lineContent.innerHTML += '\n';
 
@@ -1134,7 +1141,7 @@ var pcex = {
 		$.each(pcex.currentGoal.lineList, function (i, line) {
 			const helpBtn = $("#help_" + line.id);
 			helpBtn.unbind('click').click(pcex.handleHelpButtonClicked).show();
-      		// helpBtn.next().css('margin-left', '0px');
+			// helpBtn.next().css('margin-left', '0px');
 		});
 
 		pcex.higlightCorrectBlankLines(pcex.blankLineIDs);
