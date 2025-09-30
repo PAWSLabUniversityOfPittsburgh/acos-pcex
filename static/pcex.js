@@ -1,9 +1,145 @@
+const translations = {
+	en: {
+		'title-example-prefix': 'Example: ',
+		'title-challenge-prefix': 'Challenge: ',
+		'next-btn-example': 'Next Example',
+		'next-btn-challenge': 'Challenge Me!',
+		'decrease-indentation-btn': 'Decrease Indentation',
+		'increase-indentation-btn': 'Increase Indentation',
+		'check-result-correct': 'Correct!',
+		'user-input': 'User Input',
+		'output': 'Output',
+		'incorrect-try-again': 'Incorrect. Try Again!',
+		'your-program-throws-exception': 'Your program throws exception',
+		'exception-details': 'Exception Details',
+		'your-program-has-compilation-error': 'Your program has compilation error',
+		'compilation-error-details': 'Compilation Error Details',
+		'your-program-output-is-different': 'Your program output is different than the expected output',
+		'program-output-details': 'Program Output Details',
+		'is-incorrect': 'is incorrect',
+		'are-incorrect': 'are incorrect',
+		'has-indentation-error': 'has indentation error',
+		'have-indentation-error': 'have indentation error',
+		'fill-in-your-code-here': 'FILL IN YOUR CODE HERE',
+		'drag-a-tile-to-construct': 'Drag a tile to each missing field to construct this program.',
+		'previous': 'Previous',
+		'additional-details': 'Additional details',
+		'increase-indentation-by': 'Increase indentation in line lineNumber by levelDifference', // don't translate 'lineNumber' and 'levelDifference' -- they are placeholders
+		'decrease-indentation-by': 'Decrease indentation in line lineNumber by levelDifference', // don't translate 'lineNumber' and 'levelDifference' -- they are placeholders
+		'program-construction-examples': 'Program Construction Examples',
+		'back-btn': 'Back',
+		'explain-the-program': 'Explain the program',
+		'clear': 'Clear',
+		'next-challenge': 'Next Challenge',
+		'show-me-correct-program': 'Show Me Correct Program',
+		'show-me-hint': 'Show Me Hint',
+		'tell-me-whats-wrong': 'Tell me what’s wrong',
+		'explanations': 'Explanations',
+		'next': 'Next',
+		'hint': 'Hint',
+		'drag-tile-from-here': 'Drag a tile from here',
+		'check': 'CHECK',
+		'current-output': 'Current Output',
+		'expected-output': 'Expected Output',
+		'close': 'Close',
+		'provide-feedback': 'provide feedback on this explanation (optional)',
+		'helpful-explanation-instruction': 'Please rate this explanation on a 1–5 scale (1=low, 5=high):',
+		'it-clearly-explained-why-this-option-is-wrong': 'It clearly explained why this option is wrong.',
+		'it-clarified-a-misconception-i-didnt-realize-i-had': 'It clarified a misconception I didn’t realize I had.',
+		'here-is-what-i-would-add-change-in-this-explanation': 'What could make this explanation more helpful (optional)?',
+		'it-is-clear-and-easy-to-understand': 'It is clear and easy to understand.',
+		'it-helped-me-understand-the-purpose-of-the-line': 'It helped me understand the purpose of the line.',
+		'submit-feedback': 'Submit Feedback',
+		'feedback-submitted-successfully': 'Feedback submitted successfully. Thank you for your feedback!',
+		'feedback-submission-error': 'An error occurred while submitting feedback. Please try again later.',
+	},
+	es: {
+		'title-example-prefix': 'Ejemplo: ',
+		'title-challenge-prefix': 'Desafío: ',
+		'next-btn-example': 'Siguiente ejemplo',
+		'next-btn-challenge': '¡Desafíame!',
+		'decrease-indentation-btn': 'Disminuye la indentación',
+		'increase-indentation-btn': 'Aumenta la indentación',
+		'check-result-correct': '¡Correcto!',
+		'user-input': 'Entrada del usuario',
+		'output': 'Salida',
+		'incorrect-try-again': 'Incorrecto, intenta de nuevo',
+		'your-program-throws-exception': 'Tu programa arroja una excepción',
+		'exception-details': 'Detalles de la excepción',
+		'your-program-has-compilation-error': 'Tu programa tiene un error de compilación',
+		'compilation-error-details': 'Detalles del error de compilación',
+		'your-program-output-is-different': 'La salida de tu programa es distinta que la esperada',
+		'program-output-details': 'Detalles de la salida del programa',
+		'is-incorrect': 'es incorrecto(a)',
+		'are-incorrect': 'son incorrectos(as)',
+		'has-indentation-error': 'tiene error de indentación',
+		'have-indentation-error': 'tienen error de indentación',
+		'fill-in-your-code-here': 'COMPLETA TU CÓDIGO AQUÍ',
+		'drag-a-tile-to-construct': 'Arrastra un bloque de código hacia una de los espacios faltantes para construir tu programa',
+		'previous': 'Previo(a)',
+		'additional-details': 'Detalles adicionales',
+		'increase-indentation-by': 'Aumenta la indentación en la línea lineNumber en levelDifference nivel(es)', // don't translate 'lineNumber' and 'levelDifference' -- they are placeholders
+		'decrease-indentation-by': 'Disminuye la indentación en la línea lineNumber en levelDifference nivel(es)', // don't translate 'lineNumber' and 'levelDifference' -- they are placeholders
+		'program-construction-examples': 'Ejemplos de Construcción de Programas',
+		'back-btn': 'Volver',
+		'explain-the-program': 'Explica el programa',
+		'clear': 'Restablecer',
+		'next-challenge': 'Siguiente desafío',
+		'show-me-correct-program': 'Muéstrame el programa correcto',
+		'show-me-hint': 'Muéstrame una pista',
+		'tell-me-whats-wrong': 'Dime qué está mal',
+		'explanations': 'Explicaciones',
+		'next': 'Siguiente',
+		'hint': 'Pista',
+		'drag-tile-from-here': 'Arrastra un bloque de código desde aquí',
+		'check': 'COMPROBAR',
+		'current-output': 'Salida actual',
+		'expected-output': 'Salida esperada',
+		'close': 'Cerrar',
+		'provide-feedback': 'da tu opinión sobre esta explicación (opcional)',
+		'helpful-explanation-instruction': 'Por favor califique esta explicación en una escala del 1 al 5 (1 = bajo, 5 = alto):',
+		'it-clearly-explained-why-this-option-is-wrong': 'Explicó claramente por qué esta opción es incorrecta.',
+		'it-clarified-a-misconception-i-didnt-realize-i-had': 'Aclaró una idea errónea que no me había dado cuenta de que tenía.',
+		'here-is-what-i-would-add-change-in-this-explanation': '¿Qué podría hacer que esta explicación fuera más útil (opcional)?',
+		'it-is-clear-and-easy-to-understand': 'Está claro y es fácil de entender.',
+		'it-helped-me-understand-the-purpose-of-the-line': 'Me ayudó a entender el propósito de la línea.',
+		'submit-feedback': 'Enviar comentarios',
+		'feedback-submitted-successfully': 'Comentarios enviados con éxito. ¡Gracias por tus comentarios!',
+		'feedback-submission-error': 'Ocurrió un error al enviar los comentarios. Por favor, inténtalo de nuevo más tarde.',
+	}
+};
+
+const _text = (key) => translations[url('?locale') || 'en']?.[key] || key;
+
+// remove single quote, double quote, and comma
+const cleanName = (name) => name?.replace(/['",]/g, '');
+
+const isWeatPCEX = (name) => name.replace(/__([a-f0-9]{24})-([a-f0-9]{24})_(example|challenge)-([0-9]{1,2})$/, '').replace(/__([a-f0-9]{24})-([a-f0-9]{24})-([0-9]{1,2})$/, '') != name;
+
 $(document).ready(function () {
+	// translate all elements with translate-key attribute
+	$('[translate-key]').each(function () {
+		$(this).text(_text($(this).attr('translate-key')));
+	});
+
+	$('#back-button > span').text(_text('back-btn'));
+	$('#next-button > span').text(_text('next-btn-challenge'));
+	$('#start-animation-button > span').text(_text('explain-the-program'));
+	$('#clear-button').text(_text('clear'));
+	$('#shortcut-next-button').text(_text('next-challenge'));
+	$('#show-correct-button').text(_text('show-me-correct-program'));
+	$('#show-hint-button').text(_text('show-me-hint'));
+	$('#show-message-details').text(_text('tell-me-whats-wrong'));
+	// -----------
 	$('#check-button').click(pcex.check);
 	$('#start-animation-button').click(pcex.startAnimationClick);
 	$('#stop-animation-button').click(pcex.stopAnimationClick);
 	$('#animation-next-button').click(pcex.animationNext);
 	$('#animation-back-button').click(pcex.animationBack);
+	$(document).on('click', '#line-explanation-provide-feedback-btn', pcex.handleLineExplanationFeedbackToggle);
+	$(document).on('click', '#line-explanation-feedback-ui button[type=button]', pcex.handleLineExplanationFeedbackSubmit);
+	$(document).on('click', '#distractor-explanation-provide-feedback-btn', pcex.handleDistractorExplanationFeedbackToggle);
+	$(document).on('click', '#distractor-explanation-feedback-ui button[type=button]', pcex.handleDistractorExplanationFeedbackSubmit);
 
 	$('#clear-button').click(pcex.clearIncorrectAnswer);
 
@@ -142,12 +278,20 @@ var pcex = {
 		const api = 'https://proxy.personalized-learning.org/pcex-authoring/api/hub/';
 		const load = `${api}${id}?_t=${new Date().getTime()}`;
 
+		var index = 0; // default goal index is 0
+		if (url('?index')) {
+			index = parseInt(url('?index'));
+			$('#back-button').attr('disabled', true).hide();
+			$('#next-button').attr('disabled', true).hide();
+		}
+
 		if (load) $.ajax({
 			url: load,
 			dataType: 'json',
 			xhrFields: { withCredentials: true },
 			success: function (data) {
 				pcex.jsonData = data[0];
+				pcex.currentGoalIndex = index;
 
 				pcex.numberOfGoals = pcex.jsonData.activityGoals.length;
 				pcex.goalSolvedStates = new Array(pcex.numberOfGoals);
@@ -205,15 +349,20 @@ var pcex = {
 
 		pcex.currentGoal.goalDescription = pcex.currentGoal.goalDescription.replace(/\\n/g, '<br>');
 
+		// remove the unique-id from end of goal name
+		// this unique-id is used to make sure goal name is globally unique
+		let goalName = pcex.currentGoal.name
+			.replace(/__([a-f0-9]{24})-([a-f0-9]{24})_(example|challenge)-([0-9]{1,2})$/, '')
+			.replace(/__([a-f0-9]{24})-([a-f0-9]{24})-([0-9]{1,2})$/, '');
 		if (pcex.currentGoal.fullyWorkedOut) {
 			pcex.activityType = 'ex';
 			pcex.umApplicationId = 46;
 			pcex.changeStyleToFullyWorkedOut();
-			$('#goal_title').html("<img src='/static/acos-pcex/img/reader-24_white.png'>Example: " + pcex.currentGoal.name + "</img>");
+			$('#goal_title').html("<img src='/static/acos-pcex/img/reader-24_white.png' />" + _text('title-example-prefix') + goalName);
 		} else {
 			pcex.activityType = 'ch';
 			pcex.umApplicationId = 47;
-			$('#goal_title').html("<img src='/static/acos-pcex/img/examination-24_white.png'>Challenge: " + pcex.currentGoal.name);
+			$('#goal_title').html("<img src='/static/acos-pcex/img/examination-24_white.png' />" + _text('title-challenge-prefix') + goalName);
 
 			$.each(pcex.currentGoal.blankLineList, function (i, blankLine) {
 				pcex.blankLines.push(blankLine);
@@ -272,7 +421,7 @@ var pcex = {
 		const nextGoalIndex = pcex.currentGoalIndex + 1;
 		if (nextGoalIndex < pcex.numberOfGoals) {
 			const nextGoal = pcex.jsonData.activityGoals[nextGoalIndex];
-			$('#next-button span').text(nextGoal.fullyWorkedOut ? 'Next Example' : 'Challenge Me!');
+			$('#next-button span').text(nextGoal.fullyWorkedOut ? _text('next-btn-example') : _text('next-btn-challenge'));
 		}
 	},
 
@@ -309,7 +458,7 @@ var pcex = {
 
 			if (line.commentList.length > 0) {
 				helpButton = document.createElement('a');
-				$(helpButton).addClass('btn-floating btn-small waves-effect waves-light').attr('id', 'help_' + line.id);
+				$(helpButton).addClass('btn-floating btn-small waves-effect waves-light red').attr('id', 'help_' + line.id);
 
 				var helpIcon = document.createElement('i');
 				helpIcon.setAttribute("class", 'material-icons');
@@ -320,11 +469,11 @@ var pcex = {
 				});
 
 				helpButton.appendChild(helpIcon);
-				lineContent.append(helpButton);
+				lineContent.prepend(helpButton);
 
 				if (pcex.currentGoal.fullyWorkedOut == false) {
 					$(helpButton).hide();
-					// lineNumberSpan.style.marginLeft = '26px';
+					lineNumberSpan.style.marginLeft = '21px';
 				}
 			}
 
@@ -344,7 +493,7 @@ var pcex = {
 			}
 		} else {
 			lineContent.append(indentedCode);
-			// if (!helpButton) lineNumberSpan.style.marginLeft = '26px';
+			if (!helpButton) lineNumberSpan.style.marginLeft = '21px';
 		}
 
 		// patch: post-comment line will be highlighted as comment as well
@@ -516,8 +665,8 @@ var pcex = {
 		pcex.makeCheckButtonEnabledIfTilesFilled();
 
 		if (pcex.isPython && !pcex.indentPopoverShown) {
-			$('.decrease-indent-button').webuiPopover({ trigger: 'sticky', animation: 'pop', placement: 'bottom-right', content: 'Decrease Indentation', width: 140, onShow: function ($element) { $element.css('z-index', '99999') } });
-			$('.increase-indent-button').webuiPopover({ trigger: 'sticky', animation: 'pop', placement: 'bottom-left', content: 'Increase Indentation', width: 140, onShow: function ($element) { $element.css('z-index', '99999') } });
+			$('.decrease-indent-button').webuiPopover({ trigger: 'sticky', animation: 'pop', placement: 'bottom-right', content: _text('decrease-indentation-btn'), width: 140, onShow: function ($element) { $element.css('z-index', '99999') } });
+			$('.increase-indent-button').webuiPopover({ trigger: 'sticky', animation: 'pop', placement: 'bottom-left', content: _text('increase-indentation-btn'), width: 140, onShow: function ($element) { $element.css('z-index', '99999') } });
 
 			pcex.indentPopoverShown = true;
 		}
@@ -529,7 +678,7 @@ var pcex = {
 		pcex.clearAllWrongBlankLinesHighlight();
 		pcex.clearHint();
 
-		pcex.trackTileDrop(tile.line, blankLineId, blankLineIndex)
+		pcex.trackTileDrop(tile.line, blankLineId, blankLineIndex);
 	},
 
 	makeCheckButtonEnabledIfTilesFilled: function () {
@@ -548,7 +697,7 @@ var pcex = {
 
 		$('#decrease-indent-button-' + blankLineIndex).attr('disabled', false);
 
-		pcex.trackIndentationChange(blankLineIndex, true, pcex.droppedTileIndentation[blankLineIndex])
+		pcex.trackIndentationChange(blankLineIndex, true, pcex.droppedTileIndentation[blankLineIndex]);
 	},
 
 	handleDecreaseIndentButtonClicked: function () {
@@ -567,7 +716,7 @@ var pcex = {
 			}
 		}
 
-		pcex.trackIndentationChange(blankLineIndex, false, pcex.droppedTileIndentation[blankLineIndex])
+		pcex.trackIndentationChange(blankLineIndex, false, pcex.droppedTileIndentation[blankLineIndex]);
 	},
 
 	handleIndentButtonClicked: function (blankLineIndex) {
@@ -642,7 +791,6 @@ var pcex = {
 				}
 			}
 		}
-
 	},
 
 	back: function () {
@@ -808,17 +956,16 @@ var pcex = {
 
 		if (result) {
 			if (indentResult) {
-				$('#check-result-title').html('Correct!');
+				$('#check-result-title').html(_text('check-result-correct'));
 				$('#check-result-message').show();
 				if (pcex.currentGoal.userInputList.length > 0) {
-					var userInput = "<p class='modal-sub-title'>User Input</p><hr>" + pcex.constructUserInputPartFromProgramOutput(pcex.currentGoal.correctOutput) + '<hr>';
-					var correctOutput = "<p class='modal-sub-title'>Output</p><hr>" + pcex.extractProgramOutput(pcex.currentGoal.correctOutput)
+					var userInput = "<p class='modal-sub-title'>" + _text('user-input') + "</p><hr>" + pcex.constructUserInputPartFromProgramOutput(pcex.currentGoal.correctOutput) + '<hr>';
+					var correctOutput = "<p class='modal-sub-title'>" + _text('output') + "</p><hr>" + pcex.extractProgramOutput(pcex.currentGoal.correctOutput);
 
 					$('#check-result-message').html(userInput + correctOutput);
 				} else {
-					$('#check-result-message').html("<p class='modal-sub-title'>Output</p><hr>" + pcex.currentGoal.correctOutput);
+					$('#check-result-message').html("<p class='modal-sub-title'>" + _text('output') + "</p><hr>" + pcex.currentGoal.correctOutput);
 				}
-
 
 				$('#check-result-block').removeClass('wrong').addClass('correct');
 				if (!pcex.isInLastGoal) {
@@ -834,7 +981,7 @@ var pcex = {
 
 				pcex.numberOfTrials = 0;
 			} else {
-				$('#check-result-title').html('Incorrect. Try Again!');
+				$('#check-result-title').html(_text('incorrect-try-again'));
 				pcex.numberOfTrials++;
 
 				pcex.appendIncorrectResultMessage(wrongTiles, incorrectLineNumbers, wrongIndentedTiles, incorrectIndentedLineNumbers);
@@ -848,7 +995,7 @@ var pcex = {
 				pcex.trackCheckResult('indentation_err', 0, pcex.numberOfTrials, correctLineNumbers, incorrectIndentedLineNumbers, wrongAnswers);
 			}
 		} else {
-			$('#check-result-title').html('Incorrect. Try Again!');
+			$('#check-result-title').html(_text('incorrect-try-again'));
 			$('#show-message-details').hide();
 
 			if (pcex.isPython) {
@@ -876,33 +1023,33 @@ var pcex = {
 
 					pcex.trackCheckResult('infinite_loop', 0, pcex.numberOfTrials, correctLineNumbers, incorrectLineNumbers, wrongAnswers);
 				} else if (alternativeOutput.toLowerCase().includes('exception')) {
-					$('#check-result-title').html('Your program throws exception');
+					$('#check-result-title').html(_text('your-program-throws-exception'));
 					$('#check-result-message').hide();
 					$('#show-message-details').show();
 
 					$('#modal-output-div').hide();
-					$('#modal-check-result-title').html('Exception Details');
+					$('#modal-check-result-title').html(_text('exception-details'));
 					$('#modal-check-result-div').show();
 					$('#modal-check-result-message').html(alternativeOutput);
 
 					pcex.trackCheckResult('exception', 0, pcex.numberOfTrials, correctLineNumbers, incorrectLineNumbers, wrongAnswers);
 				} else if (alternativeOutput.toLowerCase().includes('error')) {
-					$('#check-result-title').html('Your program has compilation error');
+					$('#check-result-title').html(_text('your-program-has-compilation-error'));
 					$('#check-result-message').hide();
 					$('#show-message-details').show();
 
 					$('#modal-output-div').hide();
-					$('#modal-check-result-title').html('Compilation Error Details');
+					$('#modal-check-result-title').html(_text('compilation-error-details'));
 					$('#modal-check-result-div').show();
 					$('#modal-check-result-message').html(alternativeOutput);
 
 					pcex.trackCheckResult('compilation_err', 0, pcex.numberOfTrials, correctLineNumbers, incorrectLineNumbers, wrongAnswers);
 				} else {
 					$('#check-result-message').show();
-					$('#check-result-message').html('Your program output is different than the expected output');
+					$('#check-result-message').html(_text('your-program-output-is-different'));
 					$('#show-message-details').show();
 
-					$('#modal-check-result-title').html('Program Output Details');
+					$('#modal-check-result-title').html(_text('program-output-details'));
 
 					var currentProgramOutputPart = pcex.extractProgramOutput(alternativeOutput);
 					var expectedProgramOutputPart = pcex.extractProgramOutput(pcex.currentGoal.correctOutput);
@@ -910,7 +1057,7 @@ var pcex = {
 					if (pcex.currentGoal.userInputList.length > 0) {
 						var userInputPart = pcex.constructUserInputPartFromProgramOutput(alternativeOutput);
 						$('#modal-check-result-div').show();
-						$('#modal-check-result-message').html("<p class='modal-sub-title'>User Input</p>" + userInputPart);
+						$('#modal-check-result-message').html("<p class='modal-sub-title'>" + _text('user-input') + "</p>" + userInputPart);
 					} else {
 						$('#modal-check-result-message').empty();
 						$('#modal-check-result-div').hide();
@@ -949,7 +1096,7 @@ var pcex = {
 		var incorrectResultDiv = document.createElement('div');
 		$(incorrectResultDiv).css('display', 'grid');
 		if (incorrectLines.length > 0) {
-			var resultMessage = pcex.createIncorrectResultMessage(incorrectLines, incorrectLineNumbers, "is incorrect", "are incorrect");
+			var resultMessage = pcex.createIncorrectResultMessage(incorrectLines, incorrectLineNumbers, _text('is-incorrect'), _text('are-incorrect'));
 			$(incorrectResultDiv).append(resultMessage);
 		}
 
@@ -958,7 +1105,7 @@ var pcex = {
 
 
 		if (incorrectIndentedLines.length > 0) {
-			var resultMessage = pcex.createIncorrectResultMessage(incorrectIndentedLines, incorrectIndentedLineNumbers, "has indentation error", "have indentation error");
+			var resultMessage = pcex.createIncorrectResultMessage(incorrectIndentedLines, incorrectIndentedLineNumbers, _text('has-indentation-error'), _text('have-indentation-error'));
 			$(incorrectResultDiv).append(resultMessage);
 		}
 
@@ -1141,7 +1288,7 @@ var pcex = {
 		$.each(pcex.currentGoal.lineList, function (i, line) {
 			const helpBtn = $("#help_" + line.id);
 			helpBtn.unbind('click').click(pcex.handleHelpButtonClicked).show();
-			// helpBtn.next().css('margin-left', '0px');
+			helpBtn.next().css('margin-left', '0px');
 		});
 
 		pcex.higlightCorrectBlankLines(pcex.blankLineIDs);
@@ -1163,7 +1310,7 @@ var pcex = {
 				if (pcex.droppedTiles[index]) {
 					sourceCode += pcex.getIndentedCode(pcex.droppedTiles[index].line, true, index) + "\n";
 				} else {
-					sourceCode += pcex.commentString + "FILL IN YOUR CODE HERE\n";
+					sourceCode += pcex.commentString + _text('fill-in-your-code-here') + "\n";
 				}
 			}
 
@@ -1202,7 +1349,6 @@ var pcex = {
 		$('#drag-tile-div').hide();
 		pcex.hideCheckCollapsible();
 		$('#show-correct-button').hide();
-
 	},
 
 	changeStyleToChallenge: function () {
@@ -1212,9 +1358,7 @@ var pcex = {
 		$('#animation-back-button').hide();
 		$('#check-button').show();
 
-
 		$('#next-button').removeClass('btn-primary').addClass('btn-challenge');
-
 
 		if ($('#back-button').hasClass('pcex_button') == false) {
 			$('#back-button').removeClass().addClass('pcex_button btn-sm btn-responsive btn-challenge waves-effect waves-light');
@@ -1222,7 +1366,7 @@ var pcex = {
 			$('#back-button').removeClass('btn-primary').addClass('btn-challenge');
 		}
 
-		$('#goal_description').html(pcex.currentGoal.goalDescription + "<br><br>Drag a tile to each missing field to construct this program.");
+		$('#goal_description').html(pcex.currentGoal.goalDescription + "<br><br>" + _text('drag-a-tile-to-construct'));
 		$('#goal_title').removeClass('primary-color').addClass('primary-challenge-color');
 		$('#drag-tile-div').show();
 		$('#explanation-div').hide();
@@ -1247,7 +1391,17 @@ var pcex = {
 		pcex.addAnimationExplanation(helpButtonClicked);
 	},
 
-	createHelpWindowContent: function (line, disableNavigation) {
+	createHelpWindowContent: function (line, disableNavigation, tile) {
+		const is_distractor_explanation = tile?.commentList?.join('').trim().length > 0;
+
+		// use tile's comments instead of line's comments
+		// this will show distractor's explanation instead of line's explanation
+		let org_line = null;
+		if (is_distractor_explanation) {
+			org_line = line;
+			line = tile;
+		}
+
 		var helpDiv = document.createElement('div');
 		$(helpDiv).attr('id', 'help_comment_' + line.id);
 		$(helpDiv).attr('help_index', 0);
@@ -1266,18 +1420,277 @@ var pcex = {
 
 		if (!disableNavigation && line.commentList.length > 1) {
 			var helpBackButton = document.createElement('a');
-			$(helpBackButton).attr('id', 'help_back_line_' + line.id).addClass('btn btn-info btn-sm').html('Back').attr('disabled', true);
+			$(helpBackButton).attr('id', 'help_back_line_' + line.id).addClass('btn btn-info btn-sm').html(_text('previous')).attr('disabled', true);
 			$(helpDiv).append(helpBackButton);
 
 			var helpNextButton = document.createElement('a');
-			$(helpNextButton).attr('id', 'help_next_line_' + line.id).addClass('btn btn-info btn-sm').html('Additional details');
+			$(helpNextButton).attr('id', 'help_next_line_' + line.id).addClass('btn btn-info btn-sm').html(_text('additional-details'));
 			$(helpDiv).append(helpNextButton);
+		}
+
+		if (is_distractor_explanation) {
+			$(helpDiv).append(pcex.getDistractorExplanationFeedbackUI(org_line, tile));
+		} else if (isWeatPCEX(pcex.currentGoal.name)) { // line explanation
+			$(helpDiv).append(pcex.getLineExplanationFeedbackUI(line));
 		}
 
 		var wrapper = document.createElement('div');
 		$(wrapper).append(helpDiv);
 
 		return wrapper;
+	},
+
+	getDistractorExplanationFeedbackUI: function (line, tile) {
+		const feedback_ui = $(`
+			<div style="margin-top:10px;">
+				<input type="hidden" name="distractor-explanation-line" />
+				<input type="hidden" name="distractor-explanation-tile" />
+				<span id="distractor-explanation-provide-feedback-btn">${_text('provide-feedback')}</span>
+				<div id="distractor-explanation-feedback-ui" style="display:none;">
+					<table >
+						<tr>
+							<td><b>${_text('helpful-explanation-instruction')}</b></td>
+						</tr>
+						<tr>
+							<td>${_text('it-clearly-explained-why-this-option-is-wrong')}</td>
+						</tr>
+						<tr>
+							<td>
+								<div class="controls">
+								<label><span>1</span><input type="radio" name="helpful-explanation-it-clearly-explained-why-this-option-is-wrong" value="1"/></label>
+								<label><span>2</span><input type="radio" name="helpful-explanation-it-clearly-explained-why-this-option-is-wrong" value="2"/></label>
+								<label><span>3</span><input type="radio" name="helpful-explanation-it-clearly-explained-why-this-option-is-wrong" value="3"/></label>
+								<label><span>4</span><input type="radio" name="helpful-explanation-it-clearly-explained-why-this-option-is-wrong" value="4"/></label>
+								<label><span>5</span><input type="radio" name="helpful-explanation-it-clearly-explained-why-this-option-is-wrong" value="5"/></label>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td>${_text('it-clarified-a-misconception-i-didnt-realize-i-had')}</td>
+						</tr>
+						<tr>
+							<td>
+								<div class="controls">
+								<label><span>1</span><input type="radio" name="helpful-explanation-it-clarified-a-misconception-i-didnt-realize-i-had" value="1"/></label>
+								<label><span>2</span><input type="radio" name="helpful-explanation-it-clarified-a-misconception-i-didnt-realize-i-had" value="2"/></label>
+								<label><span>3</span><input type="radio" name="helpful-explanation-it-clarified-a-misconception-i-didnt-realize-i-had" value="3"/></label>
+								<label><span>4</span><input type="radio" name="helpful-explanation-it-clarified-a-misconception-i-didnt-realize-i-had" value="4"/></label>
+								<label><span>5</span><input type="radio" name="helpful-explanation-it-clarified-a-misconception-i-didnt-realize-i-had" value="5"/></label>
+								</div>
+							</td>
+						</tr>
+						
+						<tr><td>${_text('here-is-what-i-would-add-change-in-this-explanation')}</td></tr>
+						<tr><td><textarea name="helpful-explanation-open-feedback"></textarea></td></tr>
+						<tr><td><button type="button">${_text('submit-feedback')}</button></td></tr>
+						<tr><td id="helpful-explanation-submission-feedback"></td></tr>
+					</table>
+				</div>
+			</div>`);
+		feedback_ui.find('input[name="distractor-explanation-line"]').attr('value', JSON.stringify(line));
+		feedback_ui.find('input[name="distractor-explanation-tile"]').attr('value', JSON.stringify(tile));
+		return feedback_ui;
+	},
+
+	getLineExplanationFeedbackUI: function (line) {
+		const feedback_ui = $(`
+			<div style="margin-top:10px;">
+				<input type="hidden" name="line-explanation-line" />
+				<span id="line-explanation-provide-feedback-btn">${_text('provide-feedback')}</span>
+				<div id="line-explanation-feedback-ui" style="display:none;">
+					<table >
+						<tr>
+							<td><b>${_text('helpful-explanation-instruction')}</b></td>
+						</tr>
+						<tr>
+							<td>${_text('it-is-clear-and-easy-to-understand')}</td>
+						</tr>
+						<tr>
+							<td>
+								<div class="controls">
+								<label><span>1</span><input type="radio" name="helpful-explanation-it-is-clear-and-easy-to-understand" value="1"/></label>
+								<label><span>2</span><input type="radio" name="helpful-explanation-it-is-clear-and-easy-to-understand" value="2"/></label>
+								<label><span>3</span><input type="radio" name="helpful-explanation-it-is-clear-and-easy-to-understand" value="3"/></label>
+								<label><span>4</span><input type="radio" name="helpful-explanation-it-is-clear-and-easy-to-understand" value="4"/></label>
+								<label><span>5</span><input type="radio" name="helpful-explanation-it-is-clear-and-easy-to-understand" value="5"/></label>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td>${_text('it-helped-me-understand-the-purpose-of-the-line')}</td>
+						</tr>
+						<tr>
+							<td>
+								<div class="controls">
+								<label><span>1</span><input type="radio" name="helpful-explanation-it-helped-me-understand-the-purpose-of-the-line" value="1"/></label>
+								<label><span>2</span><input type="radio" name="helpful-explanation-it-helped-me-understand-the-purpose-of-the-line" value="2"/></label>
+								<label><span>3</span><input type="radio" name="helpful-explanation-it-helped-me-understand-the-purpose-of-the-line" value="3"/></label>
+								<label><span>4</span><input type="radio" name="helpful-explanation-it-helped-me-understand-the-purpose-of-the-line" value="4"/></label>
+								<label><span>5</span><input type="radio" name="helpful-explanation-it-helped-me-understand-the-purpose-of-the-line" value="5"/></label>
+								</div>
+							</td>
+						</tr>
+						
+						<tr><td>${_text('here-is-what-i-would-add-change-in-this-explanation')}</td></tr>
+						<tr><td><textarea name="helpful-explanation-open-feedback"></textarea></td></tr>
+						<tr><td><button type="button">${_text('submit-feedback')}</button></td></tr>
+						<tr><td id="helpful-explanation-submission-feedback"></td></tr>
+					</table>
+				</div>
+			</div>`);
+		feedback_ui.find('input[name="line-explanation-line"]').attr('value', JSON.stringify(line));
+		return feedback_ui;
+	},
+
+	handleDistractorExplanationFeedbackSubmit: function () {
+		const feedbacks = {
+			...pcex.tracking_data,
+			'activity-id': pcex.jsonData['id'],
+			'activity-name': cleanName(pcex.jsonData['activityName']),
+			'goal_id': pcex.currentGoal.id,
+			'goal_name': cleanName(pcex.currentGoal.name),
+			'line': JSON.parse($('input[name="distractor-explanation-line"]').val()),
+			'tile': JSON.parse($('input[name="distractor-explanation-tile"]').val()),
+			feedback: $('textarea[name="helpful-explanation-open-feedback"]').val(),
+			'on_acos': true,
+		};
+		$('#distractor-explanation-feedback-ui input[type="radio"]:checked').each(function () {
+			feedbacks[$(this).attr('name').replace('helpful-explanation-', '')] = $(this).val();
+		});
+
+		$.ajax({
+			type: 'POST',
+			url: (
+				location.href.startsWith('http://localhost:3000') ?
+					'http://localhost:3000' : 'https://proxy.personalized-learning.org/pcex-authoring'
+			) + '/api/distractor-explanation/feedback',
+			data: JSON.stringify(feedbacks),
+			contentType: 'application/json',
+			dataType: 'json',
+			success: function (response) {
+				$('#helpful-explanation-submission-feedback').html(`
+					<span style="color:green;">${_text('feedback-submitted-successfully')}</span>	
+				`);
+			},
+			error: function () {
+				$('#helpful-explanation-submission-feedback').html(`
+					<span style="color:red;">${_text('feedback-submission-error')}</span>	
+				`);
+			},
+			complete: function () {
+				setTimeout(() => {
+					$('#helpful-explanation-submission-feedback').html(``);
+				}, 5000);
+			}
+		});
+	},
+
+	handleDistractorExplanationFeedbackToggle: function () {
+		const feedbacks = {
+			...pcex.tracking_data,
+			'activity-id': pcex.jsonData['id'],
+			'activity-name': cleanName(pcex.jsonData['activityName']),
+			'goal_id': pcex.currentGoal.id,
+			'goal_name': cleanName(pcex.currentGoal.name),
+			'line': JSON.parse($('input[name="distractor-explanation-line"]').val()),
+			'tile': JSON.parse($('input[name="distractor-explanation-tile"]').val()),
+			'toggle': $('#distractor-explanation-feedback-ui').is(':visible') ? 'hide' : 'show',
+			'on_acos': true,
+		};
+
+		$.ajax({
+			type: 'POST',
+			url: (
+				location.href.startsWith('http://localhost:3000') ?
+					'http://localhost:3000' : 'https://proxy.personalized-learning.org/pcex-authoring'
+			) + '/api/distractor-explanation/feedback',
+			data: JSON.stringify(feedbacks),
+			contentType: 'application/json',
+			dataType: 'json',
+			success: function (response) { },
+			error: function () { },
+			complete: function () {
+				$('#distractor-explanation-feedback-ui').toggle();
+			}
+		});
+	},
+
+	handleLineExplanationFeedbackSubmit: function () {
+		const feedbacks = {
+			...pcex.tracking_data,
+			'activity-id': pcex.jsonData['id'],
+			'activity-name': cleanName(pcex.jsonData['activityName']),
+			'goal_id': pcex.currentGoal.id,
+			'goal_name': cleanName(pcex.currentGoal.name),
+			'line': {
+				...JSON.parse($('input[name="line-explanation-line"]').val()),
+				index: parseInt($('#line-explanation-feedback-ui').closest('[help_index]').attr('help_index')),
+			},
+			feedback: $('textarea[name="helpful-explanation-open-feedback"]').val(),
+			'on_acos': true,
+		};
+		$('#line-explanation-feedback-ui input[type="radio"]:checked').each(function () {
+			feedbacks[$(this).attr('name').replace('helpful-explanation-', '')] = $(this).val();
+		});
+
+		$.ajax({
+			type: 'POST',
+			url: (
+				location.href.startsWith('http://localhost:3000') ?
+					'http://localhost:3000' : 'https://proxy.personalized-learning.org/pcex-authoring'
+			) + '/api/distractor-explanation/feedback',
+			data: JSON.stringify(feedbacks),
+			contentType: 'application/json',
+			dataType: 'json',
+			success: function (response) {
+				$('#helpful-explanation-submission-feedback').html(`
+					<span style="color:green;">${_text('feedback-submitted-successfully')}</span>	
+				`);
+			},
+			error: function () {
+				$('#helpful-explanation-submission-feedback').html(`
+					<span style="color:red;">${_text('feedback-submission-error')}</span>	
+				`);
+			},
+			complete: function () {
+				setTimeout(() => {
+					$('#helpful-explanation-submission-feedback').html(``);
+				}, 5000);
+			}
+		});
+	},
+
+	handleLineExplanationFeedbackToggle: function () {
+		const feedbacks = {
+			...pcex.tracking_data,
+			'activity-id': pcex.jsonData['id'],
+			'activity-name': cleanName(pcex.jsonData['activityName']),
+			'goal_id': pcex.currentGoal.id,
+			'goal_name': cleanName(pcex.currentGoal.name),
+			'line': {
+				...JSON.parse($('input[name="line-explanation-line"]').val()),
+				index: parseInt($('#line-explanation-feedback-ui').closest('[help_index]').attr('help_index')),
+			},
+			feedback: $('textarea[name="helpful-explanation-open-feedback"]').val(),
+			'toggle': $('#line-explanation-feedback-ui').is(':visible') ? 'hide' : 'show',
+			'on_acos': true,
+		};
+
+		$.ajax({
+			type: 'POST',
+			url: (
+				location.href.startsWith('http://localhost:3000') ?
+					'http://localhost:3000' : 'https://proxy.personalized-learning.org/pcex-authoring'
+			) + '/api/distractor-explanation/feedback',
+			data: JSON.stringify(feedbacks),
+			contentType: 'application/json',
+			dataType: 'json',
+			success: function (response) { },
+			error: function () { },
+			complete: function () {
+				$('#line-explanation-feedback-ui').toggle();
+			}
+		});
 	},
 
 	stopAnimationClick: function () {
@@ -1366,6 +1779,7 @@ var pcex = {
 
 				return $('#line_' + line.id).addClass('blink-me');
 			});
+
 			$(helpContent).find("a[id^='help_next']").click(function () {
 				var line = pcex.linesWithExplanation[pcex.animationStepIndex];
 				$('#line_' + line.id).removeClass('blink-me');
@@ -1452,20 +1866,22 @@ var pcex = {
 			var levelDifference = 0;
 
 			if (currentIndentLevel < requiredIndentLevel) {
-				indentationMessage = "Increase";
+				indentationMessage = _text('increase-indentation-by').replace('lineNumber', `${relatedBlankLine.line.number}`).replace('levelDifference', `${levelDifference}`);
 				levelDifference = requiredIndentLevel - currentIndentLevel;
 			} else {
-				indentationMessage = "Decrease";
+				indentationMessage = _text('decrease-indentation-by').replace('lineNumber', `${relatedBlankLine.line.number}`).replace('levelDifference', `${levelDifference}`);
 				levelDifference = currentIndentLevel - requiredIndentLevel;
 			}
 
-			indentationMessage += " indentation in line " + relatedBlankLine.line.number + " by " + levelDifference;
 			var messageSpan = document.createElement('span');
 			$(messageSpan).html(indentationMessage);
 			$(hintContent).append(messageSpan);
 
 		} else {
-			hintContent = pcex.createHelpWindowContent(relatedBlankLine.line, true);
+			hintContent = pcex.createHelpWindowContent(
+				relatedBlankLine.line, true,
+				pcex.droppedTiles[relatedBlankLineIndex].line // pass the tile too
+			);
 		}
 
 		pcex.trackHint('explanation', relatedBlankLine.line.number);
@@ -1543,14 +1959,15 @@ var pcex = {
 	trackUserActivity: function () {
 		var trackingData = {
 			tracking_id: uuid.v4(),
-			activity_set_name: pcex.currentGoal.activityName,
+			activity_set_name: cleanName(pcex.currentGoal.activityName),
 			activity_type: pcex.activityType,
-			goal_name: pcex.currentGoal.fileName,
+			// weat pcex content uses goal names instead of filename as the 'goal name'
+			goal_name: isWeatPCEX(pcex.currentGoal.name) ? cleanName(pcex.currentGoal.name) : pcex.currentGoal.fileName,
 			goal_index: pcex.currentGoalIndex,
 			tiles: pcex.getTilesTrackingInfo()
 		}
 
-		pcex.tracking_data = trackingData
+		pcex.tracking_data = trackingData;
 
 		if (!pcex.pcexTrackingID) {
 			pcex.pcexTrackingID = trackingData.tracking_id

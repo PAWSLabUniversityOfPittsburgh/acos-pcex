@@ -180,8 +180,8 @@ h6 {
   align-items: center;
 }
 
-#drag-tile-title > *:first-child,
-#explanation-title > *:first-child {
+#drag-tile-title>*:first-child,
+#explanation-title>*:first-child {
   flex-grow: 1;
 }
 
@@ -224,7 +224,7 @@ h6 {
 
 .modal-content {
   height: 100%;
-  weight: 100%;
+  width: 100%;
   background: azure;
   padding-top: 5px;
 }
@@ -358,6 +358,62 @@ h6 {
 #animation-next-button,
 #animation-back-button {
   padding: 0 0.5rem !important;
+}
+
+#line-explanation-provide-feedback-btn,
+#distractor-explanation-provide-feedback-btn {
+  text-decoration: underline;
+  cursor: pointer;
+  font-size: 0.75rem;
+}
+
+#line-explanation-feedback-ui,
+#distractor-explanation-feedback-ui {
+  border: solid 1px lightgray;
+  border-radius: 5px;
+  padding: 5px;
+  margin: -10px;
+  margin-top: 0.5rem;
+  user-select: none;
+}
+
+#line-explanation-feedback-ui td,
+#distractor-explanation-feedback-ui td {
+  padding: 0.125rem;
+}
+
+#line-explanation-feedback-ui td:not(:first-child),
+#distractor-explanation-feedback-ui td:not(:first-child) {
+  text-align: center;
+}
+
+#line-explanation-feedback-ui .controls,
+#distractor-explanation-feedback-ui .controls {
+  margin-left: 1rem;
+  display: flex;
+  gap: 0.5rem;
+}
+
+#line-explanation-feedback-ui label,
+#distractor-explanation-feedback-ui label {
+  cursor: pointer;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+}
+
+#line-explanation-feedback-ui input[type="radio"],
+#distractor-explanation-feedback-ui input[type="radio"] {
+  position: relative !important;
+  opacity: 1 !important;
+  cursor: pointer;
+}
+
+#line-explanation-feedback-ui textarea,
+#distractor-explanation-feedback-ui textarea {
+  height: auto;
 }
 
 /*
