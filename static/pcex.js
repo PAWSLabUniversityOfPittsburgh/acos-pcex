@@ -690,23 +690,28 @@ var pcex = {
 		var blankLineIndex = $(this).attr('lineIndex');
 		pcex.handleIndentButtonClicked(blankLineIndex);
 
-		var lineText = pcex.getTextNode($(this).parent());
-		lineText.data = '    ' + lineText.data;
+		const first = $(this).closest('.line').find('.linenumber')[0].nextSibling;
+		if (first.nodeType === 3) { // a text node
+			first.nodeValue = '    ' + first.nodeValue;
+		} else if (first.nodeType === 1) { // an element node
+			first.innerHTML = '    ' + first.innerHTML;
+		}
 
 		pcex.droppedTileIndentation[blankLineIndex]++;
 
 		$('#decrease-indent-button-' + blankLineIndex).attr('disabled', false);
-
-		pcex.trackIndentationChange(blankLineIndex, true, pcex.droppedTileIndentation[blankLineIndex]);
 	},
 
 	handleDecreaseIndentButtonClicked: function () {
 		var blankLineIndex = $(this).attr('lineIndex');
 		pcex.handleIndentButtonClicked(blankLineIndex);
 
-		var lineText = pcex.getTextNode($(this).parent());
-		lineText.data = lineText.data.replace(/^\s{4}/, '');
-
+		const first = $(this).closest('.line').find('.linenumber')[0].nextSibling;
+		if (first.nodeType === 3) { // a text node
+			first.nodeValue = first.nodeValue.replace(/^\s{4}/, '');
+		} else if (first.nodeType === 1) { // an element node	
+			first.innerHTML = first.innerHTML.replace(/^\s{4}/, '');
+		}
 
 		if (pcex.droppedTileIndentation[blankLineIndex] > 0) {
 			pcex.droppedTileIndentation[blankLineIndex]--;
@@ -715,8 +720,6 @@ var pcex = {
 				$(this).attr('disabled', true);
 			}
 		}
-
-		pcex.trackIndentationChange(blankLineIndex, false, pcex.droppedTileIndentation[blankLineIndex]);
 	},
 
 	handleIndentButtonClicked: function (blankLineIndex) {
