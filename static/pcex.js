@@ -329,8 +329,8 @@ var pcex = {
 		const lti_rsrc = url('?resource_name');
 		const html_rsrc = url('-1');
 		const id = (lti_rsrc || html_rsrc).split('__', 2)[1];
-		const api = 'https://proxy.personalized-learning.org/pcex-authoring/api/hub/';
-		const load = `${api}${id}?_t=${new Date().getTime()}`;
+		const api = '/static/acos-pcex-examples/data/';
+		const load = `${api}${id}.json?_t=${new Date().getTime()}`;
 
 		var index = 0; // default goal index is 0
 		if (url('?index')) {
