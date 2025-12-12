@@ -325,27 +325,30 @@ var pcex = {
 		}, "*");
 	},
 
-	parse: function (language, setName) {
-		const lti_rsrc = url('?resource_name');
-		const html_rsrc = url('-1');
-		const id = (lti_rsrc || html_rsrc).split('__', 2)[1];
-		const api = '/static/acos-pcex-examples/data/';
-		const load = `${api}${id}.json?_t=${new Date().getTime()}`;
+	get_rsrc_id: function () {
+		return (
+			// <- through lti
+			url('?resource_name') ||
+			// <- through pitt
+			$('[name="acos-example-id"]').val() ||
+			// <- through html
+			url('-1')
+		).split('__', 2)[1];
+	},
 
-		var index = 0; // default goal index is 0
+	parse: function (language, setName) {
 		if (url('?index')) {
-			index = parseInt(url('?index'));
 			$('#back-button').attr('disabled', true).hide();
 			$('#next-button').attr('disabled', true).hide();
 		}
 
-		if (load) $.ajax({
-			url: load,
+		$.ajax({
+			url: `/static/acos-pcex-examples/data/${pcex.get_rsrc_id()}.json?_t=${new Date().getTime()}`,
 			dataType: 'json',
 			xhrFields: { withCredentials: true },
 			success: function (data) {
 				pcex.jsonData = data[0];
-				pcex.currentGoalIndex = index;
+				pcex.currentGoalIndex = parseInt(url('?index') || '0');
 
 				pcex.numberOfGoals = pcex.jsonData.activityGoals.length;
 				pcex.goalSolvedStates = new Array(pcex.numberOfGoals);
