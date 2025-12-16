@@ -365,6 +365,10 @@ var pcex = {
 			pcex.indentChar = '    ';
 			pcex.commentString = '#';
 			pcex.codeHighlightClass = 'python hljs';
+		} else if (language === 'ASM') {
+			pcex.indentChar = '    ';
+			pcex.commentString = ';';
+			pcex.codeHighlightClass = 'x86asm hljs';
 		} else {
 			pcex.indentChar = '  ';
 			pcex.commentString = '//';
@@ -531,6 +535,8 @@ var pcex = {
 				if (pcex.currentGoal.fullyWorkedOut == false) {
 					$(helpButton).hide();
 					lineNumberSpan.style.marginLeft = '21px';
+				} else {
+					lineNumberSpan.style.marginLeft = '5px';
 				}
 			}
 
@@ -547,6 +553,8 @@ var pcex = {
 					$(increaseIndentButton).css('z-index', '99999');
 					$('#overlay').fadeIn(300);
 				}
+
+				lineNumberSpan.style.marginLeft = '21px';
 			}
 		} else {
 			lineContent.append(indentedCode);
@@ -747,11 +755,11 @@ var pcex = {
 		var blankLineIndex = $(this).attr('lineIndex');
 		pcex.handleIndentButtonClicked(blankLineIndex);
 
-		const first = $(this).closest('.line').find('.linenumber')[0].nextSibling;
-		if (first.nodeType === 3) { // a text node
-			first.nodeValue = '    ' + first.nodeValue;
-		} else if (first.nodeType === 1) { // an element node
-			first.innerHTML = '    ' + first.innerHTML;
+		const firstEl = $(this).closest('.line').find('.linenumber')[0].nextSibling;
+		if (firstEl.nodeType === 3) { // a text node
+			firstEl.nodeValue = '    ' + firstEl.nodeValue;
+		} else if (firstEl.nodeType === 1) { // an element node
+			firstEl.innerHTML = '    ' + firstEl.innerHTML;
 		}
 
 		pcex.droppedTileIndentation[blankLineIndex]++;
@@ -763,11 +771,11 @@ var pcex = {
 		var blankLineIndex = $(this).attr('lineIndex');
 		pcex.handleIndentButtonClicked(blankLineIndex);
 
-		const first = $(this).closest('.line').find('.linenumber')[0].nextSibling;
-		if (first.nodeType === 3) { // a text node
-			first.nodeValue = first.nodeValue.replace(/^\s{4}/, '');
-		} else if (first.nodeType === 1) { // an element node	
-			first.innerHTML = first.innerHTML.replace(/^\s{4}/, '');
+		const firstEl = $(this).closest('.line').find('.linenumber')[0].nextSibling;
+		if (firstEl.nodeType === 3) { // a text node
+			firstEl.nodeValue = firstEl.nodeValue.replace(/^\s{4}/, '');
+		} else if (firstEl.nodeType === 1) { // an element node	
+			firstEl.innerHTML = firstEl.innerHTML.replace(/^\s{4}/, '');
 		}
 
 		if (pcex.droppedTileIndentation[blankLineIndex] > 0) {
@@ -1344,11 +1352,10 @@ var pcex = {
 			pcex.fixBrokenHelpIcons();
 		});
 
-
 		$.each(pcex.currentGoal.lineList, function (i, line) {
 			const helpBtn = $("#help_" + line.id);
 			helpBtn.unbind('click').click(pcex.handleHelpButtonClicked).show();
-			helpBtn.next().css('margin-left', '0px');
+			helpBtn.next().css('margin-left', '5px');
 		});
 
 		pcex.higlightCorrectBlankLines(pcex.blankLineIDs);
@@ -1601,14 +1608,20 @@ var pcex = {
 		feedback_ui.find('input[name="line-explanation-line"]').attr('value', JSON.stringify(line));
 		return feedback_ui;
 	},
+	
+	get_distexp_feedback_api_url: function () {
+		return (location.href.startsWith('http://localhost:3000') ?
+			'http://localhost:3000' : 'https://proxy.personalized-learning.org/pcex-authoring'
+		) + '/api/distractor-explanation/feedback';
+	},
 
 	handleDistractorExplanationFeedbackSubmit: function () {
 		const feedbacks = {
 			...pcex.tracking_data,
 			'activity-id': pcex.jsonData['id'],
 			'activity-name': cleanName(pcex.jsonData['activityName']),
-			'goal_id': pcex.currentGoal.id,
-			'goal_name': cleanName(pcex.currentGoal.name),
+			'goal-id': pcex.currentGoal.id,
+			'goal-name': cleanName(pcex.currentGoal.name),
 			'line': JSON.parse($('input[name="distractor-explanation-line"]').val()),
 			'tile': JSON.parse($('input[name="distractor-explanation-tile"]').val()),
 			feedback: $('textarea[name="helpful-explanation-open-feedback"]').val(),
@@ -1620,10 +1633,7 @@ var pcex = {
 
 		$.ajax({
 			type: 'POST',
-			url: (
-				location.href.startsWith('http://localhost:3000') ?
-					'http://localhost:3000' : 'https://proxy.personalized-learning.org/pcex-authoring'
-			) + '/api/distractor-explanation/feedback',
+			url: pcex.get_distexp_feedback_api_url(),
 			data: JSON.stringify(feedbacks),
 			contentType: 'application/json',
 			dataType: 'json',
@@ -1650,8 +1660,8 @@ var pcex = {
 			...pcex.tracking_data,
 			'activity-id': pcex.jsonData['id'],
 			'activity-name': cleanName(pcex.jsonData['activityName']),
-			'goal_id': pcex.currentGoal.id,
-			'goal_name': cleanName(pcex.currentGoal.name),
+			'goal-id': pcex.currentGoal.id,
+			'goal-name': cleanName(pcex.currentGoal.name),
 			'line': JSON.parse($('input[name="distractor-explanation-line"]').val()),
 			'tile': JSON.parse($('input[name="distractor-explanation-tile"]').val()),
 			'toggle': $('#distractor-explanation-feedback-ui').is(':visible') ? 'hide' : 'show',
@@ -1660,10 +1670,7 @@ var pcex = {
 
 		$.ajax({
 			type: 'POST',
-			url: (
-				location.href.startsWith('http://localhost:3000') ?
-					'http://localhost:3000' : 'https://proxy.personalized-learning.org/pcex-authoring'
-			) + '/api/distractor-explanation/feedback',
+			url: pcex.get_distexp_feedback_api_url(),
 			data: JSON.stringify(feedbacks),
 			contentType: 'application/json',
 			dataType: 'json',
@@ -1680,8 +1687,8 @@ var pcex = {
 			...pcex.tracking_data,
 			'activity-id': pcex.jsonData['id'],
 			'activity-name': cleanName(pcex.jsonData['activityName']),
-			'goal_id': pcex.currentGoal.id,
-			'goal_name': cleanName(pcex.currentGoal.name),
+			'goal-id': pcex.currentGoal.id,
+			'goal-name': cleanName(pcex.currentGoal.name),
 			'line': {
 				...JSON.parse($('input[name="line-explanation-line"]').val()),
 				index: parseInt($('#line-explanation-feedback-ui').closest('[help_index]').attr('help_index')),
@@ -1695,10 +1702,7 @@ var pcex = {
 
 		$.ajax({
 			type: 'POST',
-			url: (
-				location.href.startsWith('http://localhost:3000') ?
-					'http://localhost:3000' : 'https://proxy.personalized-learning.org/pcex-authoring'
-			) + '/api/distractor-explanation/feedback',
+			url: pcex.get_distexp_feedback_api_url(),
 			data: JSON.stringify(feedbacks),
 			contentType: 'application/json',
 			dataType: 'json',
@@ -1738,10 +1742,7 @@ var pcex = {
 
 		$.ajax({
 			type: 'POST',
-			url: (
-				location.href.startsWith('http://localhost:3000') ?
-					'http://localhost:3000' : 'https://proxy.personalized-learning.org/pcex-authoring'
-			) + '/api/distractor-explanation/feedback',
+			url: pcex.get_distexp_feedback_api_url(),
 			data: JSON.stringify(feedbacks),
 			contentType: 'application/json',
 			dataType: 'json',
