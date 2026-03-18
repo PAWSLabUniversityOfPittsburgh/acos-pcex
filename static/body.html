@@ -2,11 +2,11 @@
 </header>
 <main>
 	<div class="container-fluid" style="display: none;">
-		<div id='goal-header' class="row">
+		<div id="goal-header" class="row">
 			<div>
 				<button id="back-button" type="button" class="pcex_button btn-sm btn-responsive"
 					data-match-height="pcex_button">
-					<img class="img-fluid" src='/static/acos-pcex/img/ic_chevron_left_white_36pt_2x.png' />
+					<img class="img-fluid" src="/static/acos-pcex/img/ic_chevron_left_white_36pt_2x.png" />
 					<span translate-key="back-btn">Back</span>
 				</button>
 			</div>
@@ -18,10 +18,10 @@
 					</div>
 				</div>
 			</div>
-			<div class="col-sm-1 col-md-1 col-lg-1 col-xl-1">
+			<div id="next-button-container" class="col-sm-1 col-md-1 col-lg-1 col-xl-1">
 				<button id="next-button" type="button" class="pcex_button btn-sm btn-responsive"
 					data-match-height="pcex_button">
-					<img class="img-fluid" src='/static/acos-pcex/img/ic_navigate_next_white_36dp_2x.png' />
+					<img class="img-fluid" src="/static/acos-pcex/img/ic_navigate_next_white_36dp_2x.png" />
 					<span translate-key="next-btn-challenge">Challenge Me!</span>
 				</button>
 			</div>
@@ -33,12 +33,12 @@
 					<div id="div_code" class="panel-body"></div>
 				</div>
 			</div>
-			<div id='scrollable' class="col-sm-4">
-				<div id='scrollable-content'>
+			<div id="scrollable" class="col-sm-4">
+				<div id="scrollable-content">
 
 					<a id="start-animation-button" class="waves-effect waves-light btn">
 						<span translate-key="explain-the-program">Explain the program</span>
-						<img src='/static/acos-pcex/img/teacher_36.png'></img>
+						<img src="/static/acos-pcex/img/teacher_36.png"></img>
 					</a>
 
 					<div id="checkCollapsible" class="panel-collapse collapse">
@@ -61,11 +61,11 @@
 						</div>
 					</div>
 					<div id="explanation-div" class="card" style="display: none;">
-						<div id='explanation-title' class="card-header secondary-color white-text ">
+						<div id="explanation-title" class="card-header secondary-color white-text ">
 							<span class="hidden-md-down" style="font-size: 1rem;"
 								translate-key="explanations">Explanations</span>
 							<a id="animation-back-button" class="waves-effect waves-light btn btn-sm"
-								style="display: none;" disabled='true'>
+								style="display: none;" disabled="true" dir="ltr">
 								<i class="material-icons left">undo</i>
 								<span translate-key="previous">Previous</span>
 							</a>
@@ -91,7 +91,7 @@
 					<div id="drag-tile-div" class="card" style="display: none;">
 						<div id="drag-tile-title" class="card-header secondary-color white-text">
 							<span translate-key="drag-tile-from-here">Drag a tile from here</span>
-							<a id="check-button" class="waves-effect waves-light btn btn-challenge" disabled='true'
+							<a id="check-button" class="waves-effect waves-light btn btn-challenge" disabled="true"
 								data-toggle="collapse" data-target="#checkCollapsible" aria-expanded="false"
 								style="display: none;">
 								<i class="material-icons right">play_circle_outline</i>
@@ -107,6 +107,7 @@
 			</div>
 		</div>
 		<div id="overlay"></div>
+	<div id="locale-switcher" aria-label="Language switcher"></div>
 
 		<div id="result-modal" class="modal modal-fixed-footer">
 			<div class="modal-content">
@@ -119,14 +120,14 @@
 					<div class="row vdivide">
 						<div class="col-sm-6">
 							<div>
-								<p id="modal-current-output" class='modal-sub-title' translate-key="current-output">
+								<p id="modal-current-output" class="modal-sub-title" translate-key="current-output">
 									Current Output</p>
 								<pre><p id="modal-current-output-message"></p></pre>
 							</div>
 						</div>
 						<div class="col-sm-6">
 							<div>
-								<p id="modal-expected-output" class='modal-sub-title' translate-key="expected-output">
+								<p id="modal-expected-output" class="modal-sub-title" translate-key="expected-output">
 									Expected Output</p>
 								<pre><p id="modal-expected-output-message"></p></pre>
 							</div>
@@ -162,4 +163,5 @@
 <script src="/static/acos-pcex/js/url.min.js" type="text/javascript"></script>
 <script src="/static/acos-pcex/js/js.cookie.js" type="text/javascript"></script>
 <script src="/static/acos-pcex/js/uuid.min.js" type="text/javascript"></script>
+<script src="/static/acos-pcex/translations.js" type="text/javascript"></script>
 <script src="/static/acos-pcex/pcex.js?v=201802071211" type="text/javascript"></script>

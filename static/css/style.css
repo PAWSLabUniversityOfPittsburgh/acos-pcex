@@ -70,23 +70,28 @@
 }
 
 .code-blank-line {
-  margin-bottom: 5px;
   border: 2px dashed #428bca;
   border-radius: 8px;
   cursor: move;
-  /*margin-left: -8px;
-	margin-right: 1px;*/
-  /*After tile drop, this cause line number to shifted left*/
+  margin: -2px;
+  margin-bottom: 3px;
+  box-sizing: border-box;
 }
 
 .code-blank-line-error {
   background: #fddfdf;
   border: 3px dashed #f1a899;
+  margin: -3px;
+  margin-bottom: 2px;
+  box-sizing: border-box;
 }
 
 .code-blank-line-correct {
   background: #64ffda;
   border: 3px dashed #1de9b6;
+  margin: -3px;
+  margin-bottom: 2px;
+  box-sizing: border-box;
 }
 
 .tile-dragging-start {
@@ -95,6 +100,7 @@
   padding: 0.1em;
   overflow-x: hidden;
   overflow-y: hidden;
+  margin: -3px;
 }
 
 .tile-dragged {
@@ -121,7 +127,26 @@
 }
 
 .line.hljs {
-  padding: 0em !important;
+  padding: 0em 0em 0em 5px !important;
+  overflow: visible;
+}
+
+/* Ensure bordered lines stay aligned with the 5px baseline */
+/* Ensure bordered lines stay aligned with the 5px baseline by compensating for negative margins */
+.line.hljs.animation-highlight,
+.line.hljs.hint-highlight,
+.line.hljs.code-blank-line-error,
+.line.hljs.code-blank-line-correct {
+  padding-left: 5px !important;
+}
+
+.line.hljs.code-blank-line {
+  padding-left: 21px !important;
+}
+
+/* Fix double-padding when a tile is dropped inside a blank line container */
+.line .line.hljs {
+  padding-left: 0px !important;
 }
 
 .tile-blank-line {
@@ -130,6 +155,12 @@
   cursor: move;
   padding: 0.1em !important;
   background: transparent;
+  box-sizing: border-box;
+  direction: ltr;
+}
+
+#div_code .tile-blank-line {
+  margin: -2px;
 }
 
 .tile-blank-line-highlight {
@@ -140,6 +171,8 @@
   background-color: #fffa90;
   border-radius: 8px;
   border: 3px dashed #d4e157;
+  margin: -3px;
+  box-sizing: border-box;
 }
 
 .webui-popover {
@@ -208,6 +241,10 @@ h6 {
   color: white;
 }
 
+[dir="rtl"] .close {
+  float: left;
+}
+
 .hint-title {
   background-color: #ff8800 !important;
 }
@@ -216,6 +253,8 @@ h6 {
   background: #ffe490;
   border-radius: 8px;
   border: 3px solid #ff8800;
+  margin: -3px;
+  box-sizing: border-box;
 }
 
 .hovered {
@@ -316,6 +355,14 @@ h6 {
 
 #goal-header {
   margin-bottom: 0px;
+  width: 100%;
+  flex-wrap: nowrap;
+  align-items: start;
+}
+
+#goal-header > #goal_column {
+  flex: 1 1 auto;
+  max-width: 100%;
 }
 
 #goal_title {
@@ -332,6 +379,157 @@ h6 {
   display: inline;
   margin-left: -10px;
   padding-right: 10px;
+}
+
+[dir="rtl"] #goal_title img {
+  margin-left: 0;
+  margin-right: -10px;
+  padding-right: 0;
+  padding-left: 10px;
+}
+
+[dir="rtl"] .linenumber {
+  text-align: left;
+  padding-right: 0;
+  padding-left: 3px;
+  margin-right: 0;
+  margin-left: 10px;
+}
+
+[dir="rtl"] .btn-floating {
+  margin-left: 0;
+  margin-right: -5px;
+}
+
+[dir="rtl"] .increase-indent-button {
+  right: auto;
+  left: -16px;
+}
+
+[dir="rtl"] #div_code .linenumber {
+  text-align: right;
+  padding-right: 3px;
+  padding-left: 0;
+  margin-right: 10px;
+  margin-left: 0;
+}
+
+[dir="rtl"] #div_code .btn-floating {
+  margin-left: -5px;
+  margin-right: 0;
+}
+
+[dir="rtl"] #div_code .increase-indent-button {
+  right: -16px;
+  left: auto;
+}
+
+[dir="rtl"] #animation-next-button {
+  display: inline-flex;
+  flex-direction: row-reverse;
+  align-items: center;
+}
+
+[dir="rtl"] #animation-next-button i.right {
+  margin-left: 0;
+  margin-right: 3px;
+  transform: scaleX(-1);
+}
+
+[dir="rtl"] #animation-back-button {
+  display: inline-flex;
+  flex-direction: row-reverse;
+  align-items: center;
+}
+
+[dir="rtl"] #animation-back-button i.left {
+  margin-right: 0;
+  margin-left: 3px;
+  transform: scaleX(-1);
+}
+
+#locale-switcher {
+  position: fixed;
+  right: 16px;
+  bottom: 16px;
+  z-index: 99999;
+  display: none;
+  gap: 0;
+  padding: 2px;
+  border-radius: 10px;
+  background: #ffffff;
+  border: 1px solid #1f5fbf;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+
+#locale-switcher .locale-switcher-btn {
+  border: 0;
+  background: transparent;
+  color: #1f5fbf;
+  padding: 7px 12px;
+  border-radius: 0;
+  font-size: 12px;
+  line-height: 1;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+#locale-switcher .locale-switcher-btn:hover {
+  background: #e8f0ff;
+}
+
+#locale-switcher .locale-switcher-btn.active {
+  background: #1f5fbf;
+  color: #ffffff;
+}
+
+#locale-switcher .locale-switcher-btn + .locale-switcher-btn {
+  border-left: 1px solid #1f5fbf;
+}
+
+#locale-switcher .locale-switcher-btn:first-child {
+  border-top-left-radius: 8px;
+  border-bottom-left-radius: 8px;
+}
+
+#locale-switcher .locale-switcher-btn:last-child {
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 8px;
+}
+
+[dir="rtl"] #line-explanation-feedback-ui,
+[dir="rtl"] #distractor-explanation-feedback-ui {
+  direction: rtl;
+  text-align: right;
+}
+
+[dir="rtl"] #line-explanation-feedback-ui td,
+[dir="rtl"] #distractor-explanation-feedback-ui td {
+  text-align: right;
+}
+
+[dir="rtl"] #locale-switcher {
+  right: auto;
+  left: 16px;
+}
+
+[dir="rtl"] #locale-switcher .locale-switcher-btn:first-child {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 8px;
+}
+
+[dir="rtl"] #locale-switcher .locale-switcher-btn:last-child {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  border-top-left-radius: 8px;
+  border-bottom-left-radius: 8px;
+}
+
+[dir="rtl"] #locale-switcher .locale-switcher-btn + .locale-switcher-btn {
+  border-left: 0;
+  border-right: 1px solid #1f5fbf;
 }
 
 /*#modal-output-div [class*=col] {
@@ -398,6 +596,12 @@ h6 {
   gap: 0.5rem;
 }
 
+[dir="rtl"] #line-explanation-feedback-ui .controls,
+[dir="rtl"] #distractor-explanation-feedback-ui .controls {
+  margin-left: 0;
+  margin-right: 1rem;
+}
+
 #line-explanation-feedback-ui label,
 #distractor-explanation-feedback-ui label {
   cursor: pointer;
@@ -418,6 +622,10 @@ h6 {
 #line-explanation-feedback-ui textarea,
 #distractor-explanation-feedback-ui textarea {
   height: auto;
+}
+
+[dir="rtl"] .img-fluid {
+  transform: scaleX(-1);
 }
 
 /*

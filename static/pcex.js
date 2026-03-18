@@ -1,176 +1,12 @@
-const translations = {
-	en: {
-		'title-example-prefix': 'Example: ',
-		'title-challenge-prefix': 'Challenge: ',
-		'next-btn-example': 'Next Example',
-		'next-btn-challenge': 'Challenge Me!',
-		'decrease-indentation-btn': 'Decrease Indentation',
-		'increase-indentation-btn': 'Increase Indentation',
-		'check-result-correct': 'Correct!',
-		'user-input': 'User Input',
-		'output': 'Output',
-		'incorrect-try-again': 'Incorrect. Try Again!',
-		'your-program-throws-exception': 'Your program throws exception',
-		'exception-details': 'Exception Details',
-		'your-program-has-compilation-error': 'Your program has compilation error',
-		'compilation-error-details': 'Compilation Error',
-		'your-program-output-is-different': 'Your program output is different than the expected output',
-		'program-output-details': 'Program Output Details',
-		'is-incorrect': 'is incorrect',
-		'are-incorrect': 'are incorrect',
-		'has-indentation-error': 'has indentation error',
-		'have-indentation-error': 'have indentation error',
-		'fill-in-your-code-here': 'FILL IN YOUR CODE HERE',
-		'drag-a-tile-to-construct': 'Drag a tile to each missing field to construct this program.',
-		'previous': 'Previous',
-		'additional-details': 'Additional details',
-		'increase-indentation-by': 'Increase indentation in line lineNumber by levelDifference', // don't translate 'lineNumber' and 'levelDifference' -- they are placeholders
-		'decrease-indentation-by': 'Decrease indentation in line lineNumber by levelDifference', // don't translate 'lineNumber' and 'levelDifference' -- they are placeholders
-		'program-construction-examples': 'Program Construction Examples',
-		'back-btn': 'Back',
-		'explain-the-program': 'Explain the program',
-		'clear': 'Clear',
-		'next-challenge': 'Next Challenge',
-		'show-me-correct-program': 'Show Me Correct Program',
-		'show-me-hint': 'Explain',
-		'tell-me-whats-wrong': 'Tell me what’s wrong',
-		'explanations': 'Explanations',
-		'next': 'Next',
-		'hint': 'Hint',
-		'drag-tile-from-here': 'Drag a tile from here',
-		'check': 'CHECK',
-		'current-output': 'Current Output',
-		'expected-output': 'Expected Output',
-		'close': 'Close',
-		'provide-feedback': 'provide feedback on this explanation (optional)',
-		'helpful-explanation-instruction': 'Please rate this explanation on a 1–5 scale (1=low, 5=high):',
-		'it-clearly-explained-why-this-option-is-wrong': 'It clearly explained why this option is wrong.',
-		'it-clarified-a-misconception-i-didnt-realize-i-had': 'It clarified a misconception I didn’t realize I had.',
-		'here-is-what-i-would-add-change-in-this-explanation': 'What could make this explanation more helpful (optional)?',
-		'it-is-clear-and-easy-to-understand': 'It is clear and easy to understand.',
-		'it-helped-me-understand-the-purpose-of-the-line': 'It helped me understand the purpose of the line.',
-		'submit-feedback': 'Submit Feedback',
-		'feedback-submitted-successfully': 'Feedback submitted successfully. Thank you for your feedback!',
-		'feedback-submission-error': 'An error occurred while submitting feedback. Please try again later.',
-	},
-	es: {
-		'title-example-prefix': 'Ejemplo: ',
-		'title-challenge-prefix': 'Desafío: ',
-		'next-btn-example': 'Siguiente ejemplo',
-		'next-btn-challenge': '¡Desafíame!',
-		'decrease-indentation-btn': 'Disminuye la indentación',
-		'increase-indentation-btn': 'Aumenta la indentación',
-		'check-result-correct': '¡Correcto!',
-		'user-input': 'Entrada del usuario',
-		'output': 'Salida',
-		'incorrect-try-again': 'Incorrecto, intenta de nuevo',
-		'your-program-throws-exception': 'Tu programa arroja una excepción',
-		'exception-details': 'Detalles de la excepción',
-		'your-program-has-compilation-error': 'Tu programa tiene un error de compilación',
-		'compilation-error-details': 'Error de compilación',
-		'your-program-output-is-different': 'La salida de tu programa es distinta que la esperada',
-		'program-output-details': 'Detalles de la salida del programa',
-		'is-incorrect': 'es incorrecto(a)',
-		'are-incorrect': 'son incorrectos(as)',
-		'has-indentation-error': 'tiene error de indentación',
-		'have-indentation-error': 'tienen error de indentación',
-		'fill-in-your-code-here': 'COMPLETA TU CÓDIGO AQUÍ',
-		'drag-a-tile-to-construct': 'Arrastra un bloque de código hacia una de los espacios faltantes para construir tu programa',
-		'previous': 'Previo(a)',
-		'additional-details': 'Detalles adicionales',
-		'increase-indentation-by': 'Aumenta la indentación en la línea lineNumber en levelDifference nivel(es)', // don't translate 'lineNumber' and 'levelDifference' -- they are placeholders
-		'decrease-indentation-by': 'Disminuye la indentación en la línea lineNumber en levelDifference nivel(es)', // don't translate 'lineNumber' and 'levelDifference' -- they are placeholders
-		'program-construction-examples': 'Ejemplos de Construcción de Programas',
-		'back-btn': 'Volver',
-		'explain-the-program': 'Explica el programa',
-		'clear': 'Restablecer',
-		'next-challenge': 'Siguiente desafío',
-		'show-me-correct-program': 'Muéstrame el programa correcto',
-		'show-me-hint': 'Explica',
-		'tell-me-whats-wrong': 'Dime qué está mal',
-		'explanations': 'Explicaciones',
-		'next': 'Siguiente',
-		'hint': 'Pista',
-		'drag-tile-from-here': 'Arrastra un bloque de código desde aquí',
-		'check': 'COMPROBAR',
-		'current-output': 'Salida actual',
-		'expected-output': 'Salida esperada',
-		'close': 'Cerrar',
-		'provide-feedback': 'da tu opinión sobre esta explicación (opcional)',
-		'helpful-explanation-instruction': 'Por favor califique esta explicación en una escala del 1 al 5 (1 = bajo, 5 = alto):',
-		'it-clearly-explained-why-this-option-is-wrong': 'Explicó claramente por qué esta opción es incorrecta.',
-		'it-clarified-a-misconception-i-didnt-realize-i-had': 'Aclaró una idea errónea que no me había dado cuenta de que tenía.',
-		'here-is-what-i-would-add-change-in-this-explanation': '¿Qué podría hacer que esta explicación fuera más útil (opcional)?',
-		'it-is-clear-and-easy-to-understand': 'Está claro y es fácil de entender.',
-		'it-helped-me-understand-the-purpose-of-the-line': 'Me ayudó a entender el propósito de la línea.',
-		'submit-feedback': 'Enviar comentarios',
-		'feedback-submitted-successfully': 'Comentarios enviados con éxito. ¡Gracias por tus comentarios!',
-		'feedback-submission-error': 'Ocurrió un error al enviar los comentarios. Por favor, inténtalo de nuevo más tarde.',
-	},
-	bs: {
-		'title-example-prefix': 'Primjer: ',
-		'title-challenge-prefix': 'Izazov: ',
-		'next-btn-example': 'Sljedeći primjer',
-		'next-btn-challenge': 'Idi na izazov!',
-		'decrease-indentation-btn': 'Smanji indentaciju',
-		'increase-indentation-btn': 'Povećaj indentaciju',
-		'check-result-correct': 'Tačno!',
-		'user-input': 'Korisnički unos',
-		'output': 'Izlaz',
-		'incorrect-try-again': 'Netačno. Pokušaj ponovo!',
-		'your-program-throws-exception': 'Program baca izuzetak',
-		'exception-details': 'Detalji izuzetka',
-		'your-program-has-compilation-error': 'Program ima kompajlersku grešku',
-		'compilation-error-details': 'Detalji kompajlerske greške',
-		'your-program-output-is-different': 'Izlaz programa ne odgovara traženom',
-		'program-output-details': 'Detalji izlaza programa',
-		'is-incorrect': 'nije tačan',
-		'are-incorrect': 'nisu tačni',
-		'has-indentation-error': 'ima grešku u indentaciji',
-		'have-indentation-error': 'imaju grešku u indentaciji',
-		'fill-in-your-code-here': 'OVDJE UBACITI KOD',
-		'drag-a-tile-to-construct': 'Povuci opciju na svako prazno polje da kontruišeš ovaj program.',
-		'previous': 'Prethodno',
-		'additional-details': 'Dodatni detalji',
-		'increase-indentation-by': 'Povećaj indentaciju u liniji lineNumber za levelDifference', // don't translate 'lineNumber' and 'levelDifference' -- they are placeholders
-		'decrease-indentation-by': 'Smanji indentaciju u liniji lineNumber za levelDifference', // don't translate 'lineNumber' and 'levelDifference' -- they are placeholders
-		'program-construction-examples': 'Primjeri konstrukcije programa',
-		'back-btn': 'Nazad',
-		'explain-the-program': 'Objasni program',
-		'clear': 'Očisti',
-		'next-challenge': 'Naredni izazov',
-		'show-me-correct-program': 'Prikaži tačan program',
-		'show-me-hint': 'Prikaži savjet',
-		'tell-me-whats-wrong': 'Prikaži šta je pogrešno',
-		'explanations': 'Objašnjenja',
-		'next': 'Naredno',
-		'hint': 'Savjet',
-		'drag-tile-from-here': 'Povuci opciju odavde',
-		'check': 'PROVJERI',
-		'current-output': 'Trenutni izlaz',
-		'expected-output': 'Očekivani izlaz',
-		'close': 'Zatvori',
-		'provide-feedback': 'Napiši mišljenje o ovom objašnjenju (opcionalno)',
-		'helpful-explanation-instruction': 'Molimo ocijenite ovo objašnjenje na skali od 1 do 5 (1=nisko, 5=visoko):',
-		'it-clearly-explained-why-this-option-is-wrong': 'Jasno je objašnjeno zašto je ova opcija pogrešna.',
-		'it-clarified-a-misconception-i-didnt-realize-i-had': 'Razjasnilo je zabludu za koju nisam znao/la da imam.',
-		'here-is-what-i-would-add-change-in-this-explanation': 'Šta bi učinilo ovo objašnjenje korisnijim (opcionalno)?',
-		'it-is-clear-and-easy-to-understand': 'Jasno je i jednostavno za razumjeti.',
-		'it-helped-me-understand-the-purpose-of-the-line': 'Pomoglo mi je da razumijem svrhu ove linije.',
-		'submit-feedback': 'Pošalji mišljenje',
-		'feedback-submitted-successfully': 'Mišljenje uspješno poslano. Hvala!',
-		'feedback-submission-error': 'Došlo je do greške prilikom slanja mišljenja. Molimo pokušajte kasnije.',
-	}
-};
+let activeLocale = url('?locale') || 'en';
+const _text = (key) => translations[activeLocale]?.[key] || key;
 
-const _text = (key) => translations[url('?locale') || 'en']?.[key] || key;
+const applyTranslations = () => {
+	// Apply text direction based on current locale translation.
+	$('html').attr('dir', _text('ui.dir'));
+	// Ensure code viewer is always LTR regardless of UI locale.
+	$('#div_code').attr('dir', 'ltr');
 
-// remove single quote, double quote, and comma
-const cleanName = (name) => name?.replace(/['",]/g, '');
-
-const isWeatPCEX = (name) => name.replace(/__([a-f0-9]{24})-([a-f0-9]{24})_(example|challenge)-([0-9]{1,2})$/, '').replace(/__([a-f0-9]{24})-([a-f0-9]{24})-([0-9]{1,2})$/, '') != name;
-
-$(document).ready(function () {
 	// translate all elements with translate-key attribute
 	$('[translate-key]').each(function () {
 		$(this).text(_text($(this).attr('translate-key')));
@@ -184,6 +20,81 @@ $(document).ready(function () {
 	$('#show-correct-button').text(_text('show-me-correct-program'));
 	$('#show-hint-button').text(_text('show-me-hint'));
 	$('#show-message-details').text(_text('tell-me-whats-wrong'));
+};
+
+const buildGoalTitleHtml = (iconSrc, titleText) => {
+	const isRtl = _text('ui.dir') === 'rtl';
+	const iconHtml = "<img src='" + iconSrc + "' />";
+	return isRtl ? iconHtml + " " + titleText : iconHtml + " " + titleText;
+};
+
+const getLineElementForExplanation = (line) => {
+	if (!line || !line.id) return $();
+	const $byId = $('#line_' + line.id);
+	if ($byId.length) return $byId;
+
+	const lineNumberText = String(line.number);
+	const $byNumber = $('.line .linenumber').filter(function () {
+		return $(this).text().trim() === lineNumberText;
+	}).first().closest('.line');
+	return $byNumber;
+};
+
+const parseLoadParam = (load) => {
+	if (!load) return [];
+	const sep = load.includes(';') ? ';' : ',';
+	return load
+		.split(sep)
+		.map((part) => part.trim())
+		.filter(Boolean)
+		.map((part) => {
+			const match = part.match(/^([a-z]{2}):(https?:\/\/.+)$/i);
+			if (match) {
+				return { locale: match[1].toLowerCase(), url: match[2] };
+			}
+			return { locale: null, url: part };
+		});
+};
+
+const getNextButtonContainer = () => {
+	const $container = $('#next-button-container');
+	return $container.length ? $container : $('#next-button').parent();
+};
+
+const setInlineMarginStart = (el, value) => {
+	const isRtlByComputedStyle = (node) => {
+		if (!(node instanceof HTMLElement)) 
+			return _text('ui.dir') === 'rtl';
+		return window.getComputedStyle(node).direction === 'rtl';
+	};
+
+	if (el instanceof HTMLElement) {
+		if (isRtlByComputedStyle(el)) {
+			el.style.marginRight = value;
+			el.style.marginLeft = '';
+		} else {
+			el.style.marginLeft = value;
+			el.style.marginRight = '';
+		}
+		return;
+	}
+
+	const $el = $(el);
+	const node = $el.get(0);
+	if (isRtlByComputedStyle(node)) {
+		$el.css({ 'margin-right': value, 'margin-left': '' });
+	} else {
+		$el.css({ 'margin-left': value, 'margin-right': '' });
+	}
+};
+
+// remove single quote, double quote, and comma
+const cleanName = (name) => name?.replace(/['",]/g, '');
+
+const isWeatPCEX = (name) => name.replace(/__([a-f0-9]{24})-([a-f0-9]{24})_(example|challenge)-([0-9]{1,2})$/, '').replace(/__([a-f0-9]{24})-([a-f0-9]{24})-([0-9]{1,2})$/, '') != name;
+
+$(document).ready(function () {
+	applyTranslations();
 	// -----------
 	$('#check-button').click(pcex.check);
 	$('#start-animation-button').click(pcex.startAnimationClick);
@@ -278,6 +189,8 @@ var pcex = {
 	tracking_data: null,
 
 	jsonData: null,
+	localesAll: [],
+	jsonDataAll: null,
 	scrollLineLimit: 20,
 	numberOfTrialsForHint: 1,
 	maxNumberOfTrials: 3,
@@ -336,30 +249,62 @@ var pcex = {
 		).split('__', 2)[1];
 	},
 
-	parse: function (language, setName) {
+	parse: function () {
+		const queryLocale = url('?locale') || 'en';
+
+		const load = url('?load');
+		const loadEntries = [
+			...(pcex.get_rsrc_id() ? [{ locale: queryLocale, url: `/static/acos-pcex-examples/data/${pcex.get_rsrc_id()}.json?_t=${new Date().getTime()}` }] : []),
+			...(load ? parseLoadParam(load) : [])
+		];
+
 		if (url('?index')) {
 			$('#back-button').attr('disabled', true).hide();
-			$('#next-button').attr('disabled', true).hide();
+			$('#next-button').attr('disabled', true);
+			getNextButtonContainer().hide();
 		}
+		
+		if (loadEntries.length > 0) {
+			const entriesWithLocale = loadEntries.filter((entry) => entry.locale);
+			const entries = entriesWithLocale.length > 0 ? entriesWithLocale : loadEntries.slice(0, 1);
 
-		$.ajax({
-			url: `/static/acos-pcex-examples/data/${pcex.get_rsrc_id()}.json?_t=${new Date().getTime()}`,
-			dataType: 'json',
-			xhrFields: { withCredentials: true },
-			success: function (data) {
-				pcex.jsonData = data[0];
+			const requests = entries.map((entry) => $.ajax({
+				url: entry.url,
+				dataType: 'json',
+				xhrFields: { withCredentials: true },
+			}).then((data) => {
+				return { locale: entry.locale || queryLocale, data: Array.isArray(data) ? data[0] : data };
+			}).fail((err) => {
+				console.error(`Failed to load JSON data from ${entry.url}:`, err);
+			}));
+
+			$.when.apply($, requests).then(function () {
+				const results = Array.prototype.slice.call(arguments);
+				const localesAll = [];
+				const jsonDataAll = {};
+
+				results.forEach((result) => {
+					const payload = result[0] || result;
+					if (!payload || !payload.data) return;
+					const localeKey = (payload.locale || 'en').toLowerCase();
+					jsonDataAll[localeKey] = payload.data;
+
+					if (!localesAll.includes(localeKey)) {
+						localesAll.push(localeKey);
+					}
+				});
+
+				pcex.localesAll = localesAll;
+				pcex.jsonDataAll = jsonDataAll;
+
 				pcex.currentGoalIndex = parseInt(url('?index') || '0');
-
-				pcex.numberOfGoals = pcex.jsonData.activityGoals.length;
-				pcex.goalSolvedStates = new Array(pcex.numberOfGoals);
-				pcex.goalShowResultStates = new Array(pcex.numberOfGoals);
-				pcex.setLanguageSettings(pcex.jsonData.language);
-				pcex.init();
-			}
-		});
+				pcex.switchLocale(queryLocale, false);
+			});
+		}
 	},
 
 	setLanguageSettings: function (language) {
+		language = (language || 'JAVA').toUpperCase();
 		pcex.isPython = language === 'PYTHON';
 		if (language === 'PYTHON') {
 			pcex.indentChar = '    ';
@@ -369,7 +314,7 @@ var pcex = {
 			pcex.indentChar = '  ';
 			pcex.commentString = '--';
 			pcex.codeHighlightClass = 'sql hljs';
-		} else if (language === 'ASM') {
+		} else if (language === 'ASM' || language === 'ASSEMBLY') {
 			pcex.indentChar = '    ';
 			pcex.commentString = ';';
 			pcex.codeHighlightClass = 'x86asm hljs';
@@ -378,6 +323,78 @@ var pcex = {
 			pcex.commentString = '//';
 			pcex.codeHighlightClass = 'java hljs';
 		}
+	},
+
+	switchLocale: function (locale, skipRender) {
+		pcex.updateLocaleContent(locale);
+		if (!skipRender) {
+			pcex.renderLocaleSwitcher();
+		} else {
+			pcex.updateLocaleSwitcher();
+		}
+	},
+
+	updateLocaleContent: function (locale) {
+		if (!pcex.jsonDataAll || !pcex.jsonDataAll[locale]) {
+			return;
+		}
+
+		activeLocale = locale;
+		
+		pcex.jsonData = pcex.jsonDataAll[locale];
+		pcex.numberOfGoals = pcex.jsonData.activityGoals.length;
+		pcex.goalSolvedStates = new Array(pcex.numberOfGoals);
+		pcex.goalShowResultStates = new Array(pcex.numberOfGoals);
+		pcex.lastChallengeState = null;
+		pcex.setLanguageSettings(pcex.jsonData.language);
+		
+		applyTranslations();
+		
+		if ($('#modal-check-result-div').length > 0) {
+			$('#modal-check-result-div').hide();
+		}
+		
+		pcex.stopAnimation();
+		pcex.clearHint();
+		
+		pcex.resetFields();
+		pcex.clearScreen();
+		pcex.init();
+	},
+
+	renderLocaleSwitcher: function () {
+		const $switcher = $('#locale-switcher');
+		$switcher.empty();
+
+		if (!pcex.localesAll || pcex.localesAll.length <= 1) {
+			$switcher.hide();
+			return;
+		}
+
+		pcex.localesAll.forEach((locale) => {
+			const $btn = $('<button type="button"></button>');
+			$btn.addClass('locale-switcher-btn');
+			const label = translations[locale]?.['ui.language'] || locale.toUpperCase();
+			$btn.text(label);
+			$btn.attr('data-locale', locale);
+			$btn.toggleClass('active', locale === activeLocale);
+			$btn.on('click', function () {
+				if (locale === activeLocale) return;
+				pcex.switchLocale(locale, true);
+			});
+			$switcher.append($btn);
+		});
+
+		$switcher.show();
+	},
+
+	updateLocaleSwitcher: function () {
+		const $switcher = $('#locale-switcher');
+		if ($switcher.length === 0) return;
+		$switcher.find('button').each(function () {
+			const $btn = $(this);
+			$btn.toggleClass('active', $btn.attr('data-locale') === activeLocale);
+		});
 	},
 
 	init: function () {
@@ -389,18 +406,18 @@ var pcex = {
 		}
 		if (pcex.isInLastGoal) {
 			$('#shortcut-next-button').attr('disabled', true).hide();
-			$('#next-button').hide();
+			getNextButtonContainer().hide();
 		}
 
 		var pre = document.createElement('pre');
 		var code = document.createElement('code');
 		code.setAttribute("class", pcex.codeHighlightClass);
 
-		pcex.lineList = pcex.currentGoal.lineList;
-
-		$.each(pcex.currentGoal.lineList, function (i, line) {
+		pcex.lineList = pcex.currentGoal.lineList || [];
+		$.each(pcex.lineList, function (i, line) {
 			var lineContent = pcex.createLineContent(line, false, false);
 			$(code).append(lineContent);
+			hljs.highlightBlock(lineContent);
 
 			if (line.commentList.length > 0) {
 				pcex.linesWithExplanation.push(line);
@@ -409,27 +426,26 @@ var pcex = {
 
 		$(pre).append(code);
 		$('#div_code').append(pre);
-		hljs.highlightBlock(code);
 		pcex.fixBrokenHelpIcons();
 
-		pcex.currentGoal.goalDescription = pcex.currentGoal.goalDescription.replace(/\\n/g, '<br>');
+		pcex.currentGoal.goalDescription = (pcex.currentGoal.goalDescription || "").replace(/\\n/g, '<br>');
 
 		// remove the unique-id from end of goal name
 		// this unique-id is used to make sure goal name is globally unique
-		let goalName = pcex.currentGoal.name
+		let goalName = (pcex.currentGoal.name || "")
 			.replace(/__([a-f0-9]{24})-([a-f0-9]{24})_(example|challenge)-([0-9]{1,2})$/, '')
 			.replace(/__([a-f0-9]{24})-([a-f0-9]{24})-([0-9]{1,2})$/, '');
 		if (pcex.currentGoal.fullyWorkedOut) {
 			pcex.activityType = 'ex';
 			pcex.umApplicationId = 46;
 			pcex.changeStyleToFullyWorkedOut();
-			$('#goal_title').html("<img src='/static/acos-pcex/img/reader-24_white.png' />" + _text('title-example-prefix') + goalName);
+			$('#goal_title').attr('dir', _text('ui.dir')).html(buildGoalTitleHtml('/static/acos-pcex/img/reader-24_white.png', _text('title-example-prefix') + goalName));
 		} else {
 			pcex.activityType = 'ch';
 			pcex.umApplicationId = 47;
-			$('#goal_title').html("<img src='/static/acos-pcex/img/examination-24_white.png' />" + _text('title-challenge-prefix') + goalName);
+			$('#goal_title').attr('dir', _text('ui.dir')).html(buildGoalTitleHtml('/static/acos-pcex/img/examination-24_white.png', _text('title-challenge-prefix') + goalName));
 
-			$.each(pcex.currentGoal.blankLineList, function (i, blankLine) {
+			$.each(pcex.currentGoal.blankLineList || [], function (i, blankLine) {
 				pcex.blankLines.push(blankLine);
 				pcex.blankLineIDs.push("line_" + blankLine.line.id);
 				pcex.blankLineNumbers.push(blankLine.line.number);
@@ -457,12 +473,12 @@ var pcex = {
 					pcex.convertRegularCodeLineToBlankLine(blankLine.line.id);
 
 					var tileCodeContent = pcex.createTileContent(blankLine);
-					pcex.tiles.push(tileCodeContent);
+					if (tileCodeContent) pcex.tiles.push(tileCodeContent);
 				});
 
 				$.each(pcex.currentGoal.distractorList, function (i, distractor) {
 					var tileCodeContent = pcex.createTileContent(distractor);
-					pcex.tiles.push(tileCodeContent);
+					if (tileCodeContent) pcex.tiles.push(tileCodeContent);
 				});
 
 				pcex.tiles = pcex.shuffleArray(pcex.tiles);
@@ -536,11 +552,11 @@ var pcex = {
 				helpButton.appendChild(helpIcon);
 				lineContent.prepend(helpButton);
 
-				if (pcex.currentGoal.fullyWorkedOut == false) {
+				if (pcex.currentGoal.fullyWorkedOut === false) {
 					$(helpButton).hide();
-					lineNumberSpan.style.marginLeft = '21px';
+					setInlineMarginStart(lineNumberSpan, '21px');
 				} else {
-					lineNumberSpan.style.marginLeft = '5px';
+					setInlineMarginStart(lineNumberSpan, '5px');
 				}
 			}
 
@@ -558,11 +574,11 @@ var pcex = {
 					$('#overlay').fadeIn(300);
 				}
 
-				lineNumberSpan.style.marginLeft = '21px';
+				setInlineMarginStart(lineNumberSpan, '5px');
 			}
 		} else {
 			lineContent.append(indentedCode);
-			if (!helpButton) lineNumberSpan.style.marginLeft = '21px';
+			if (!helpButton) setInlineMarginStart(lineNumberSpan, '21px');
 		}
 
 		// patch: post-comment line will be highlighted as comment as well
@@ -636,7 +652,6 @@ var pcex = {
 	},
 
 	createTileContent: function (tile) {
-		var tileCodeContent = document.createElement('div');
 		var tilePre = document.createElement('pre');
 		$(tilePre).attr('id', 'tile_' + tile.id);
 		var tileCode = document.createElement('code');
@@ -684,7 +699,7 @@ var pcex = {
 		var isDraggedItemAlreadyInAnotherBlankLine = $(draggable).hasClass('tile-dragged') || $(draggable).hasClass('code-blank-line-error');
 
 		if (isDraggedItemAlreadyInAnotherBlankLine) { //Already dropped tile is dropped to another blank line
-			$(draggable).removeClass().html("\n").addClass("code-blank-line ui-state-default").draggable('destroy');
+			$(draggable).removeClass('code-blank-line-error tile-dragged').html("\n").addClass("code-blank-line ui-state-default").draggable('destroy');
 
 			var clearedBlankLineIndex = $.inArray($(draggable).attr('id'), pcex.blankLineIDs);
 
@@ -857,7 +872,7 @@ var pcex = {
 
 				if (pcex.isInLastGoal) {
 					$('#shortcut-next-button').attr('disabled', true).hide();
-					$('#next-button').hide();
+					getNextButtonContainer().hide();
 				} else {
 					pcex.updateNextButtonText();
 				}
@@ -874,7 +889,8 @@ var pcex = {
 			pcex.clearScreen();
 			pcex.init();
 
-			$('#next-button').attr('disabled', false).addClass('waves-effect waves-light').show();
+			$('#next-button').attr('disabled', false).addClass('waves-effect waves-light');
+			getNextButtonContainer().show();
 			$('#shortcut-next-button').attr('disabled', false).show();
 			if (pcex.currentGoalIndex == 0) {
 				$('#back-button').removeClass('btn-primary btn-challenge waves-effect waves-light').attr('disabled', true);
@@ -1028,7 +1044,7 @@ var pcex = {
 
 		if (result) {
 			if (indentResult) {
-				$('#check-result-title').html(_text('check-result-correct'));
+				$('#check-result-title').attr('translate-key', 'check-result-correct').html(_text('check-result-correct'));
 				$('#check-result-message').show();
 				if (pcex.currentGoal.userInputList.length > 0) {
 					var userInput = "<p class='modal-sub-title'>" + _text('user-input') + "</p><hr>" + pcex.constructUserInputPartFromProgramOutput(pcex.currentGoal.correctOutput) + '<hr>';
@@ -1053,7 +1069,7 @@ var pcex = {
 
 				pcex.numberOfTrials = 0;
 			} else {
-				$('#check-result-title').html(_text('incorrect-try-again'));
+				$('#check-result-title').attr('translate-key', 'incorrect-try-again').html(_text('incorrect-try-again'));
 				pcex.numberOfTrials++;
 
 				pcex.appendIncorrectResultMessage(wrongTiles, incorrectLineNumbers, wrongIndentedTiles, incorrectIndentedLineNumbers);
@@ -1067,7 +1083,7 @@ var pcex = {
 				pcex.trackCheckResult('indentation_err', 0, pcex.numberOfTrials, correctLineNumbers, incorrectIndentedLineNumbers, wrongAnswers);
 			}
 		} else {
-			$('#check-result-title').html(_text('incorrect-try-again'));
+			$('#check-result-title').attr('translate-key', 'incorrect-try-again').html(_text('incorrect-try-again'));
 			$('#show-message-details').hide();
 
 			if (pcex.isPython) {
@@ -1090,38 +1106,38 @@ var pcex = {
 				});
 
 				if (alternativeOutput.toLowerCase().includes('infinite loop')) {
-					$('#check-result-title').html(alternativeOutput);
+					$('#check-result-title').removeAttr('translate-key').html(alternativeOutput);
 					$('#check-result-message').hide();
 
 					pcex.trackCheckResult('infinite_loop', 0, pcex.numberOfTrials, correctLineNumbers, incorrectLineNumbers, wrongAnswers);
 				} else if (alternativeOutput.toLowerCase().includes('exception')) {
-					$('#check-result-title').html(_text('your-program-throws-exception'));
+					$('#check-result-title').attr('translate-key', 'your-program-throws-exception').html(_text('your-program-throws-exception'));
 					$('#check-result-message').hide();
 					$('#show-message-details').show();
 
 					$('#modal-output-div').hide();
-					$('#modal-check-result-title').html(_text('exception-details'));
+					$('#modal-check-result-title').attr('translate-key', 'exception-details').html(_text('exception-details'));
 					$('#modal-check-result-div').show();
-					$('#modal-check-result-message').html(alternativeOutput);
+					$('#modal-check-result-message').html(alternativeOutput).data('raw-output', alternativeOutput);
 
 					pcex.trackCheckResult('exception', 0, pcex.numberOfTrials, correctLineNumbers, incorrectLineNumbers, wrongAnswers);
 				} else if (alternativeOutput.toLowerCase().includes('error')) {
-					$('#check-result-title').html(_text('your-program-has-compilation-error'));
+					$('#check-result-title').attr('translate-key', 'your-program-has-compilation-error').html(_text('your-program-has-compilation-error'));
 					$('#check-result-message').hide();
 					$('#show-message-details').show();
 
 					$('#modal-output-div').hide();
-					$('#modal-check-result-title').html(_text('compilation-error-details'));
+					$('#modal-check-result-title').attr('translate-key', 'compilation-error-details').html(_text('compilation-error-details'));
 					$('#modal-check-result-div').show();
-					$('#modal-check-result-message').html(alternativeOutput);
+					$('#modal-check-result-message').html(alternativeOutput).data('raw-output', alternativeOutput);
 
 					pcex.trackCheckResult('compilation_err', 0, pcex.numberOfTrials, correctLineNumbers, incorrectLineNumbers, wrongAnswers);
 				} else {
 					$('#check-result-message').show();
-					$('#check-result-message').html(_text('your-program-output-is-different'));
+					$('#check-result-message').attr('translate-key', 'your-program-output-is-different').html(_text('your-program-output-is-different'));
 					$('#show-message-details').show();
 
-					$('#modal-check-result-title').html(_text('program-output-details'));
+					$('#modal-check-result-title').attr('translate-key', 'program-output-details').html(_text('program-output-details'));
 
 					var currentProgramOutputPart = pcex.extractProgramOutput(alternativeOutput);
 					var expectedProgramOutputPart = pcex.extractProgramOutput(pcex.currentGoal.correctOutput);
@@ -1129,9 +1145,9 @@ var pcex = {
 					if (pcex.currentGoal.userInputList.length > 0) {
 						var userInputPart = pcex.constructUserInputPartFromProgramOutput(alternativeOutput);
 						$('#modal-check-result-div').show();
-						$('#modal-check-result-message').html("<p class='modal-sub-title'>" + _text('user-input') + "</p>" + userInputPart);
+						$('#modal-check-result-message').html("<p class='modal-sub-title'>" + _text('user-input') + "</p>" + userInputPart).data('raw-output', alternativeOutput);
 					} else {
-						$('#modal-check-result-message').empty();
+						$('#modal-check-result-message').empty().removeData('raw-output');
 						$('#modal-check-result-div').hide();
 					}
 
@@ -1168,7 +1184,7 @@ var pcex = {
 		var incorrectResultDiv = document.createElement('div');
 		$(incorrectResultDiv).css('display', 'grid');
 		if (incorrectLines.length > 0) {
-			var resultMessage = pcex.createIncorrectResultMessage(incorrectLines, incorrectLineNumbers, _text('is-incorrect'), _text('are-incorrect'));
+			var resultMessage = pcex.createIncorrectResultMessage(incorrectLines, incorrectLineNumbers, 'is-incorrect', 'are-incorrect');
 			$(incorrectResultDiv).append(resultMessage);
 		}
 
@@ -1177,7 +1193,7 @@ var pcex = {
 
 
 		if (incorrectIndentedLines.length > 0) {
-			var resultMessage = pcex.createIncorrectResultMessage(incorrectIndentedLines, incorrectIndentedLineNumbers, _text('has-indentation-error'), _text('have-indentation-error'));
+			var resultMessage = pcex.createIncorrectResultMessage(incorrectIndentedLines, incorrectIndentedLineNumbers, 'has-indentation-error', 'have-indentation-error');
 			$(incorrectResultDiv).append(resultMessage);
 		}
 
@@ -1185,7 +1201,7 @@ var pcex = {
 
 	},
 
-	createIncorrectResultMessage: function (incorrectLines, incorrectLineNumbers, singularText, pluralText) {
+	createIncorrectResultMessage: function (incorrectLines, incorrectLineNumbers, singularKey, pluralKey) {
 		var errorLineNumbers = document.createElement('span');
 
 		for (i = 0; i < incorrectLines.length; i++) {
@@ -1200,22 +1216,17 @@ var pcex = {
 			}
 		}
 
-		var errorMessage = "";
-
-		if (incorrectLines.length == 1) {
-			errorMessage = " " + singularText;
-		} else {
-			errorMessage = " " + pluralText;
-		}
-
-		var errorNode = document.createTextNode(errorMessage);
+		var errorKey = (incorrectLines.length == 1) ? singularKey : pluralKey;
+		var errorNode = document.createElement('span');
+		$(errorNode).attr('translate-key', errorKey).text(_text(errorKey));
+		$(errorLineNumbers).append(document.createTextNode(" "));
 		$(errorLineNumbers).append(errorNode);
 
 		return errorLineNumbers;
 	},
 
 	clearIncorrectAnswer: function () {
-		$('.code-blank-line-error').removeClass().html("\n").addClass("code-blank-line ui-state-default");
+		$('.code-blank-line-error').removeClass('code-blank-line-error tile-dragged').html("\n").addClass("code-blank-line ui-state-default");
 
 		$.each(pcex.hiddenTiles, function (i, tile) {
 			if (pcex.correctBlankLineIDs.includes(pcex.blankLineIDs[i]) == false) {
@@ -1228,9 +1239,9 @@ var pcex = {
 		});
 
 		pcex.hideCheckCollapsible();
-		$('#check-result-title').empty();
-		$('#modal-check-result-title').empty();
-		$('#modal-check-result-message').empty();
+		$('#check-result-title').removeAttr('translate-key').empty();
+		$('#modal-check-result-title').removeAttr('translate-key').empty();
+		$('#modal-check-result-message').removeData('raw-output').empty();
 		$('#modal-current-output-message').empty();
 		$('#modal-expected-output-message').empty();
 
@@ -1325,7 +1336,6 @@ var pcex = {
 			});
 	},
 
-
 	clearAllWrongBlankLinesHighlight: function () {
 		$.each(pcex.blankLineIDs, function (i, blankLineId) {
 			$('.code-blank-line-error').removeClass('code-blank-line-error').addClass('tile-dragged');
@@ -1359,7 +1369,7 @@ var pcex = {
 		$.each(pcex.currentGoal.lineList, function (i, line) {
 			const helpBtn = $("#help_" + line.id);
 			helpBtn.unbind('click').click(pcex.handleHelpButtonClicked).show();
-			helpBtn.next().css('margin-left', '5px');
+			setInlineMarginStart(helpBtn.next(), '5px');
 		});
 
 		pcex.higlightCorrectBlankLines(pcex.blankLineIDs);
@@ -1476,6 +1486,7 @@ var pcex = {
 		var helpDiv = document.createElement('div');
 		$(helpDiv).attr('id', 'help_comment_' + line.id);
 		$(helpDiv).attr('help_index', 0);
+		$(helpDiv).attr('dir', _text('ui.dir'));
 
 		$.each(line.commentList, function (i, comment) {
 			var helpText = comment.replace(/"/g, '\'');
@@ -1615,17 +1626,17 @@ var pcex = {
 	
 	get_distexp_feedback_api_url: function () {
 		return (location.href.startsWith('http://localhost:3000') ?
-			'http://localhost:3000' : 'https://proxy.personalized-learning.org/pcex-authoring'
+			'http://localhost:3000' : (pcex.base_domain() + '/pcex-authoring')
 		) + '/api/distractor-explanation/feedback';
 	},
 
 	handleDistractorExplanationFeedbackSubmit: function () {
 		const feedbacks = {
 			...pcex.tracking_data,
-			'activity-id': pcex.jsonData['id'],
-			'activity-name': cleanName(pcex.jsonData['activityName']),
-			'goal-id': pcex.currentGoal.id,
-			'goal-name': cleanName(pcex.currentGoal.name),
+			'activity_id': pcex.jsonData['id'],
+			// 'activity-name': cleanName(pcex.jsonData['activityName']),
+			'goal_id': pcex.currentGoal.id,
+			// 'goal-name': cleanName(pcex.currentGoal.name),
 			'line': JSON.parse($('input[name="distractor-explanation-line"]').val()),
 			'tile': JSON.parse($('input[name="distractor-explanation-tile"]').val()),
 			feedback: $('textarea[name="helpful-explanation-open-feedback"]').val(),
@@ -1662,10 +1673,10 @@ var pcex = {
 	handleDistractorExplanationFeedbackToggle: function () {
 		const feedbacks = {
 			...pcex.tracking_data,
-			'activity-id': pcex.jsonData['id'],
-			'activity-name': cleanName(pcex.jsonData['activityName']),
-			'goal-id': pcex.currentGoal.id,
-			'goal-name': cleanName(pcex.currentGoal.name),
+			'activity_id': pcex.jsonData['id'],
+			// 'activity-name': cleanName(pcex.jsonData['activityName']),
+			'goal_id': pcex.currentGoal.id,
+			// 'goal-name': cleanName(pcex.currentGoal.name),
 			'line': JSON.parse($('input[name="distractor-explanation-line"]').val()),
 			'tile': JSON.parse($('input[name="distractor-explanation-tile"]').val()),
 			'toggle': $('#distractor-explanation-feedback-ui').is(':visible') ? 'hide' : 'show',
@@ -1689,10 +1700,10 @@ var pcex = {
 	handleLineExplanationFeedbackSubmit: function () {
 		const feedbacks = {
 			...pcex.tracking_data,
-			'activity-id': pcex.jsonData['id'],
-			'activity-name': cleanName(pcex.jsonData['activityName']),
-			'goal-id': pcex.currentGoal.id,
-			'goal-name': cleanName(pcex.currentGoal.name),
+			'activity_id': pcex.jsonData['id'],
+			// 'activity-name': cleanName(pcex.jsonData['activityName']),
+			'goal_id': pcex.currentGoal.id,
+			// 'goal-name': cleanName(pcex.currentGoal.name),
 			'line': {
 				...JSON.parse($('input[name="line-explanation-line"]').val()),
 				index: parseInt($('#line-explanation-feedback-ui').closest('[help_index]').attr('help_index')),
@@ -1731,10 +1742,10 @@ var pcex = {
 	handleLineExplanationFeedbackToggle: function () {
 		const feedbacks = {
 			...pcex.tracking_data,
-			'activity-id': pcex.jsonData['id'],
-			'activity-name': cleanName(pcex.jsonData['activityName']),
+			'activity_id': pcex.jsonData['id'],
+			// 'activity-name': cleanName(pcex.jsonData['activityName']),
 			'goal_id': pcex.currentGoal.id,
-			'goal_name': cleanName(pcex.currentGoal.name),
+			// 'goal-name': cleanName(pcex.currentGoal.name),
 			'line': {
 				...JSON.parse($('input[name="line-explanation-line"]').val()),
 				index: parseInt($('#line-explanation-feedback-ui').closest('[help_index]').attr('help_index')),
@@ -1771,8 +1782,12 @@ var pcex = {
 		$('#explanation-div').hide();
 		$('#explanation').empty();
 
-		var line = pcex.linesWithExplanation[pcex.animationStepIndex];
-		$('#line_' + line.id).removeClass('animation-highlight blink-me');
+		var line = (pcex.linesWithExplanation && pcex.animationStepIndex < pcex.linesWithExplanation.length) 
+			? pcex.linesWithExplanation[pcex.animationStepIndex] 
+			: null;
+		if (line) {
+			getLineElementForExplanation(line).removeClass('animation-highlight blink-me');
+		}
 
 		pcex.animationStepIndex = 0;
 		pcex.animationStarted = false;
@@ -1783,7 +1798,7 @@ var pcex = {
 	animationNext: function () {
 		if (pcex.animationStepIndex > -1) {
 			var line = pcex.linesWithExplanation[pcex.animationStepIndex];
-			$('#line_' + line.id).removeClass('animation-highlight blink-me');
+			getLineElementForExplanation(line).removeClass('animation-highlight blink-me');
 		}
 
 		$('#explanation').empty();
@@ -1795,7 +1810,7 @@ var pcex = {
 	animationBack: function () {
 		if (pcex.animationStepIndex > 0) {
 			var line = pcex.linesWithExplanation[pcex.animationStepIndex];
-			$('#line_' + line.id).removeClass('animation-highlight blink-me');
+			getLineElementForExplanation(line).removeClass('animation-highlight blink-me');
 			$('#explanation').empty();
 
 			pcex.animationStepIndex--;
@@ -1813,7 +1828,7 @@ var pcex = {
 		if (pcex.animationStepIndex > -1 && pcex.animationStepIndex < pcex.linesWithExplanation.length) {
 			var line = pcex.linesWithExplanation[pcex.animationStepIndex];
 
-			$('#line_' + line.id).addClass('animation-highlight');
+			getLineElementForExplanation(line).addClass('animation-highlight blink-me');
 			var helpContent = pcex.createHelpWindowContent(line);
 			$('#explanation').append(helpContent).show();
 
@@ -1822,10 +1837,8 @@ var pcex = {
 			}
 
 			$(helpContent).find("a[id^='help_back']").click(function () {
-				var line = pcex.linesWithExplanation[pcex.animationStepIndex];
-				$('#line_' + line.id).removeClass('blink-me');
+				getLineElementForExplanation(line).removeClass('blink-me');
 				var comments = $(this).parent().find('p');
-				var commentLength = comments.length;
 				var helpDiv = $(helpContent).find("div[id^='help_comment']");
 				var index = parseInt(helpDiv.attr('help_index'));
 
@@ -1842,12 +1855,16 @@ var pcex = {
 
 				pcex.trackExplanation('sequential', index + 1, line.number);
 
-				return $('#line_' + line.id).addClass('blink-me');
+				// reset feedback-ui
+				helpDiv.find('form').trigger("reset");
+				helpDiv.find('#line-explanation-feedback-ui').hide();
+				helpDiv.find('#distractor-explanation-feedback-ui').hide();
+
+				return getLineElementForExplanation(line).addClass('blink-me');
 			});
 
 			$(helpContent).find("a[id^='help_next']").click(function () {
-				var line = pcex.linesWithExplanation[pcex.animationStepIndex];
-				$('#line_' + line.id).removeClass('blink-me');
+				getLineElementForExplanation(line).removeClass('blink-me');
 				var comments = $(this).parent().find('p');
 				var commentLength = comments.length;
 				var helpDiv = $(helpContent).find("div[id^='help_comment']");
@@ -1869,23 +1886,32 @@ var pcex = {
 				// reset feedback-ui
 				helpDiv.find('form').trigger("reset");
 				helpDiv.find('#line-explanation-feedback-ui').hide();
+				helpDiv.find('#distractor-explanation-feedback-ui').hide();
 
-				return $('#line_' + line.id).addClass('blink-me');
+				return getLineElementForExplanation(line).addClass('blink-me');
 			});
 
-			var lineOffsetPosition = $('#line_' + line.id).offset().top + 20;
+			const $lineEl = getLineElementForExplanation(line);
+			const $scrollable = $('#scrollable');
+			const $scrollableContent = $('#scrollable-content');
+			const lineOffset = $lineEl.offset();
+			const scrollablePos = $scrollable.position();
 
-			var docViewTop = $(window).scrollTop();
-			var docViewBottom = docViewTop + $(window).height();
+			if ($lineEl.length && lineOffset && $scrollable.length && $scrollableContent.length && scrollablePos) {
+				var lineOffsetPosition = lineOffset.top + 20;
 
-			var explanationTop = $('#scrollable').position().top;
-			var explanationBottom = explanationTop + $('#scrollable-content').height();
+				var docViewTop = $(window).scrollTop();
+				var docViewBottom = docViewTop + $(window).height();
 
-			if (((docViewTop < explanationTop) && (docViewBottom > explanationBottom)) == false ||
-				(((lineOffsetPosition > docViewTop) && (lineOffsetPosition < docViewBottom)) == false)) {
-				var lineRelativePosition = $('#line_' + line.id).position().top;
-				$('#scrollable').css('top', lineRelativePosition);
-				$(window).scrollTop(lineRelativePosition);
+				var explanationTop = scrollablePos.top;
+				var explanationBottom = explanationTop + $scrollableContent.height();
+
+				if (((docViewTop < explanationTop) && (docViewBottom > explanationBottom)) == false ||
+					(((lineOffsetPosition > docViewTop) && (lineOffsetPosition < docViewBottom)) == false)) {
+					var lineRelativePosition = $lineEl.position().top;
+					$scrollable.css('top', lineRelativePosition);
+					$(window).scrollTop(lineRelativePosition);
+				}
 			}
 
 			if (pcex.animationStepIndex == 0) {
@@ -1931,15 +1957,13 @@ var pcex = {
 			hintContent = document.createElement('div');
 			var indentationMessage;
 			var currentIndentLevel = pcex.droppedTileIndentation[i];
-			var requiredIndentLevel = relatedBlankLine.line.indentLevel;
-			var levelDifference = 0;
+			var requiredIndentLevel = pcex.droppedTiles[relatedBlankLineIndex].line.indentLevel;
+			var levelDifference = Math.abs(requiredIndentLevel - currentIndentLevel);
 
 			if (currentIndentLevel < requiredIndentLevel) {
 				indentationMessage = _text('increase-indentation-by').replace('lineNumber', `${relatedBlankLine.line.number}`).replace('levelDifference', `${levelDifference}`);
-				levelDifference = requiredIndentLevel - currentIndentLevel;
 			} else {
 				indentationMessage = _text('decrease-indentation-by').replace('lineNumber', `${relatedBlankLine.line.number}`).replace('levelDifference', `${levelDifference}`);
-				levelDifference = currentIndentLevel - requiredIndentLevel;
 			}
 
 			var messageSpan = document.createElement('span');
@@ -2149,5 +2173,9 @@ var pcex = {
 
 	getCurrentGoalFileNameWithoutExtensions: function () {
 		return pcex.currentGoal.fileName.replace(".java", "").replace(".py", "");
+	},
+
+	base_domain: function () {
+		return location.href.startsWith('https://') ? 'https://proxy.personalized-learning.org' : 'http://pawscomp2.sis.pitt.edu';
 	},
 };
