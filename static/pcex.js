@@ -1,3 +1,10 @@
+/*
+Query parameters accepted by this program:
+ - `locale` (default: 'en'): Sets the UI/content locale for the main activity file.
+ - `load`: Loads one or more JSON files from explicit URLs. The value may be a comma- or semicolon-separated list. Each item can optionally be prefixed with `ll:` to bind that file to locale `ll` (for example `en:https://...`); locale-tagged entries take precedence when multiple files are provided.
+ - `index`: Starts the activity on the given goal index. When present, the back/next navigation controls are hidden and the selected goal is loaded after the JSON data finishes loading.
+ - `style-class`: Adds the provided CSS class to `<body>`. When present, page styling can change without affecting app logic.
+ */
 let activeLocale = url('?locale') || 'en';
 const _text = (key) => translations[activeLocale]?.[key] || key;
 
@@ -273,6 +280,11 @@ var pcex = {
 				dataType: 'json',
 				xhrFields: { withCredentials: true },
 			}).then((data) => {
+				// In WEAT preview links, `?locale=` is not provided,
+				// and the `?load=` URL also lacks a locale identifier.
+				// Therefore, using `|| queryLocale` below ensures the activity
+				// loaded via `?load=` is treated as the main activity.
+				// (it will overwrite the dummy "preview" activity)
 				return { locale: entry.locale || queryLocale, data: Array.isArray(data) ? data[0] : data };
 			}).fail((err) => {
 				console.error(`Failed to load JSON data from ${entry.url}:`, err);
@@ -1625,8 +1637,10 @@ var pcex = {
 	},
 	
 	get_distexp_feedback_api_url: function () {
-		return (location.href.startsWith('http://localhost:3000') ?
-			'http://localhost:3000' : (pcex.base_domain() + '/pcex-authoring')
+		return (
+			location.href.startsWith('http://localhost:3000') 
+				? 'http://localhost:3000' 
+				: (pcex.base_domain() + '/pcex-authoring')
 		) + '/api/distractor-explanation/feedback';
 	},
 
@@ -1634,9 +1648,7 @@ var pcex = {
 		const feedbacks = {
 			...pcex.tracking_data,
 			'activity_id': pcex.jsonData['id'],
-			// 'activity-name': cleanName(pcex.jsonData['activityName']),
 			'goal_id': pcex.currentGoal.id,
-			// 'goal-name': cleanName(pcex.currentGoal.name),
 			'line': JSON.parse($('input[name="distractor-explanation-line"]').val()),
 			'tile': JSON.parse($('input[name="distractor-explanation-tile"]').val()),
 			feedback: $('textarea[name="helpful-explanation-open-feedback"]').val(),
@@ -1674,9 +1686,7 @@ var pcex = {
 		const feedbacks = {
 			...pcex.tracking_data,
 			'activity_id': pcex.jsonData['id'],
-			// 'activity-name': cleanName(pcex.jsonData['activityName']),
 			'goal_id': pcex.currentGoal.id,
-			// 'goal-name': cleanName(pcex.currentGoal.name),
 			'line': JSON.parse($('input[name="distractor-explanation-line"]').val()),
 			'tile': JSON.parse($('input[name="distractor-explanation-tile"]').val()),
 			'toggle': $('#distractor-explanation-feedback-ui').is(':visible') ? 'hide' : 'show',
@@ -1701,9 +1711,7 @@ var pcex = {
 		const feedbacks = {
 			...pcex.tracking_data,
 			'activity_id': pcex.jsonData['id'],
-			// 'activity-name': cleanName(pcex.jsonData['activityName']),
 			'goal_id': pcex.currentGoal.id,
-			// 'goal-name': cleanName(pcex.currentGoal.name),
 			'line': {
 				...JSON.parse($('input[name="line-explanation-line"]').val()),
 				index: parseInt($('#line-explanation-feedback-ui').closest('[help_index]').attr('help_index')),
@@ -1743,9 +1751,7 @@ var pcex = {
 		const feedbacks = {
 			...pcex.tracking_data,
 			'activity_id': pcex.jsonData['id'],
-			// 'activity-name': cleanName(pcex.jsonData['activityName']),
 			'goal_id': pcex.currentGoal.id,
-			// 'goal-name': cleanName(pcex.currentGoal.name),
 			'line': {
 				...JSON.parse($('input[name="line-explanation-line"]').val()),
 				index: parseInt($('#line-explanation-feedback-ui').closest('[help_index]').attr('help_index')),
@@ -2050,12 +2056,23 @@ var pcex = {
 	},
 
 	trackUserActivity: function () {
+		// When multiple activity JSON files are loaded via ?load=,
+		// use the main activity’s `activityName` and `goal.name`
+		// (as defined in its JSON file) to track overall progress,
+		// since it is the one registered in the course.
+
+		const mainActivityGoal = pcex.jsonDataAll[
+			url('?locale') || 'en'
+		].activityGoals[pcex.currentGoalIndex];
+
 		var trackingData = {
 			tracking_id: uuid.v4(),
-			activity_set_name: cleanName(pcex.currentGoal.activityName),
+			activity_set_name: cleanName(mainActivityGoal.activityName),
+			locale_activity_set_name: cleanName(pcex.currentGoal.activityName),
 			activity_type: pcex.activityType,
 			// weat pcex content uses goal names instead of filename as the 'goal name'
-			goal_name: isWeatPCEX(pcex.currentGoal.name) ? cleanName(pcex.currentGoal.name) : pcex.currentGoal.fileName,
+			goal_name: isWeatPCEX(mainActivityGoal.name) ? cleanName(mainActivityGoal.name) : mainActivityGoal.fileName,
+			locale_goal_name: isWeatPCEX(pcex.currentGoal.name) ? cleanName(pcex.currentGoal.name) : pcex.currentGoal.fileName,
 			goal_index: pcex.currentGoalIndex,
 			tiles: pcex.getTilesTrackingInfo()
 		}
@@ -2068,7 +2085,6 @@ var pcex = {
 		}
 
 		pcex.reportEvent("load-activity");
-
 	},
 
 	getTilesTrackingInfo: function () {
