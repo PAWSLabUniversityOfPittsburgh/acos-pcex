@@ -260,10 +260,11 @@ var pcex = {
 		const queryLocale = url('?locale') || 'en';
 
 		const load = url('?load');
-		const loadEntries = [
+
+		const loadEntries = prepLoadEntries([
 			...(pcex.get_rsrc_id() ? [{ locale: queryLocale, url: `/static/acos-pcex-examples/data/${pcex.get_rsrc_id()}.json?_t=${new Date().getTime()}` }] : []),
 			...(load ? parseLoadParam(load) : [])
-		];
+		]);
 
 		if (url('?index')) {
 			$('#back-button').attr('disabled', true).hide();
