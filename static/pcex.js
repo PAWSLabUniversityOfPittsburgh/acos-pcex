@@ -2071,6 +2071,7 @@ var pcex = {
 			activity_set_name: cleanName(mainActivityGoal.activityName),
 			locale_activity_set_name: cleanName(pcex.currentGoal.activityName),
 			activity_type: pcex.activityType,
+			um_application_id: pcex.umApplicationId,
 			// weat pcex content uses goal names instead of filename as the 'goal name'
 			goal_name: isWeatPCEX(mainActivityGoal.name) ? cleanName(mainActivityGoal.name) : mainActivityGoal.fileName,
 			locale_goal_name: isWeatPCEX(pcex.currentGoal.name) ? cleanName(pcex.currentGoal.name) : pcex.currentGoal.fileName,
