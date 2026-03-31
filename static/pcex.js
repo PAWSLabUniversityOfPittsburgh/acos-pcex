@@ -5,6 +5,21 @@ Query parameters accepted by this program:
  - `index`: Starts the activity on the given goal index. When present, the back/next navigation controls are hidden and the selected goal is loaded after the JSON data finishes loading.
  - `style-class`: Adds the provided CSS class to `<body>`. When present, page styling can change without affecting app logic.
  */
+
+(() => { // redirect to acos/pitt/pcex if necessary!
+	const pittQParamsDetected = url('?usr') && url('?grp') && url('?sid');
+	const pittPathname = '/pitt/acos-pcex/acos-pcex-examples/';
+	const isNotPITT = !location.href.includes(pittPathname);
+	if (pittQParamsDetected && isNotPITT) {
+		console.log('PITT protocol params detected, redirecting to proper handler...');
+		const url = new URL(location.href);
+		const id = url.pathname.split('/').pop();
+		url.pathname = pittPathname;
+		url.search = new URLSearchParams([['example-id', id], ...url.searchParams]).toString();
+		location.href = url.toString();
+	}
+})();
+
 let activeLocale = url('?locale') || 'en';
 const _text = (key) => translations[activeLocale]?.[key] || key;
 
