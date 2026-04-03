@@ -582,7 +582,7 @@ var pcex = {
 
 				if (pcex.currentGoal.fullyWorkedOut === false) {
 					$(helpButton).hide();
-					setInlineMarginStart(lineNumberSpan, '21px');
+					setInlineMarginStart(lineNumberSpan, isTileDrop ? '5px' : '21px');
 				} else {
 					setInlineMarginStart(lineNumberSpan, '5px');
 				}
@@ -606,7 +606,7 @@ var pcex = {
 			}
 		} else {
 			lineContent.append(indentedCode);
-			if (!helpButton) setInlineMarginStart(lineNumberSpan, '21px');
+			if (!helpButton) setInlineMarginStart(lineNumberSpan, isTileDrop ? '5px' : '21px');
 		}
 
 		// patch: post-comment line will be highlighted as comment as well
