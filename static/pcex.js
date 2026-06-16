@@ -1684,15 +1684,18 @@ var pcex = {
 				$('#helpful-explanation-submission-feedback').html(`
 					<span style="color:green;">${_text('feedback-submitted-successfully')}</span>	
 				`);
+				pcex.resizeIframe();
 			},
 			error: function () {
 				$('#helpful-explanation-submission-feedback').html(`
 					<span style="color:red;">${_text('feedback-submission-error')}</span>	
 				`);
+				pcex.resizeIframe();
 			},
 			complete: function () {
 				setTimeout(() => {
 					$('#helpful-explanation-submission-feedback').html(``);
+					pcex.resizeIframe();
 				}, 5000);
 			}
 		});
@@ -1719,6 +1722,7 @@ var pcex = {
 			error: function () { },
 			complete: function () {
 				$('#distractor-explanation-feedback-ui').toggle();
+				pcex.resizeIframe();
 			}
 		});
 	},
@@ -1749,15 +1753,18 @@ var pcex = {
 				$('#helpful-explanation-submission-feedback').html(`
 					<span style="color:green;">${_text('feedback-submitted-successfully')}</span>	
 				`);
+				pcex.resizeIframe();
 			},
 			error: function () {
 				$('#helpful-explanation-submission-feedback').html(`
 					<span style="color:red;">${_text('feedback-submission-error')}</span>	
 				`);
+				pcex.resizeIframe();
 			},
 			complete: function () {
 				setTimeout(() => {
 					$('#helpful-explanation-submission-feedback').html(``);
+					pcex.resizeIframe();
 				}, 5000);
 			}
 		});
@@ -1787,6 +1794,7 @@ var pcex = {
 			error: function () { },
 			complete: function () {
 				$('#line-explanation-feedback-ui').toggle();
+				pcex.resizeIframe();
 			}
 		});
 	},
