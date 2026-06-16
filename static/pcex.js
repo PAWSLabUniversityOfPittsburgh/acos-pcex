@@ -117,6 +117,15 @@ const isWeatPCEX = (name) => name.replace(/__([a-f0-9]{24})-([a-f0-9]{24})_(exam
 
 $(document).ready(function () {
 	applyTranslations();
+
+	// Automatically notify parent window of iframe size changes
+	if (window.ResizeObserver) {
+		const resizeObserver = new ResizeObserver(() => {
+			pcex.resizeIframe();
+		});
+		resizeObserver.observe(document.body);
+	}
+
 	// -----------
 	$('#check-button').click(pcex.check);
 	$('#start-animation-button').click(pcex.startAnimationClick);
@@ -522,8 +531,6 @@ var pcex = {
 
 		$("a[id^='help_']").unbind('click').click(pcex.handleHelpButtonClicked);
 		pcex.trackUserActivity();
-
-		pcex.resizeIframe();
 	},
 
 	updateNextButtonText: function () {
@@ -1204,8 +1211,6 @@ var pcex = {
 				$('#show-hint-button').show();
 			}
 		}
-
-		setTimeout(() => pcex.resizeIframe(), 300);
 	},
 
 	appendIncorrectResultMessage: function (incorrectLines, incorrectLineNumbers, incorrectIndentedLines, incorrectIndentedLineNumbers) {
@@ -1274,8 +1279,6 @@ var pcex = {
 		$('#modal-expected-output-message').empty();
 
 		pcex.trackClearIncorrectAnswer()
-
-		pcex.resizeIframe();
 	},
 
 	constructUserInputPartFromProgramOutput: function (output) {
@@ -1322,7 +1325,6 @@ var pcex = {
 		});
 
 		pcex.trackHint('evaluation_details', 0);
-		pcex.resizeIframe();
 	},
 
 	higlightCorrectBlankLines: function (blankLineIds) {
@@ -1375,8 +1377,6 @@ var pcex = {
 		pcex.activityType = 'ch_not_solved';
 		pcex.trackUserActivity();
 		pcex.showCorrect();
-
-		pcex.resizeIframe();
 	},
 
 	fixBrokenHelpIcons() {
@@ -1684,18 +1684,15 @@ var pcex = {
 				$('#helpful-explanation-submission-feedback').html(`
 					<span style="color:green;">${_text('feedback-submitted-successfully')}</span>	
 				`);
-				pcex.resizeIframe();
 			},
 			error: function () {
 				$('#helpful-explanation-submission-feedback').html(`
 					<span style="color:red;">${_text('feedback-submission-error')}</span>	
 				`);
-				pcex.resizeIframe();
 			},
 			complete: function () {
 				setTimeout(() => {
 					$('#helpful-explanation-submission-feedback').html(``);
-					pcex.resizeIframe();
 				}, 5000);
 			}
 		});
@@ -1722,7 +1719,6 @@ var pcex = {
 			error: function () { },
 			complete: function () {
 				$('#distractor-explanation-feedback-ui').toggle();
-				pcex.resizeIframe();
 			}
 		});
 	},
@@ -1753,18 +1749,15 @@ var pcex = {
 				$('#helpful-explanation-submission-feedback').html(`
 					<span style="color:green;">${_text('feedback-submitted-successfully')}</span>	
 				`);
-				pcex.resizeIframe();
 			},
 			error: function () {
 				$('#helpful-explanation-submission-feedback').html(`
 					<span style="color:red;">${_text('feedback-submission-error')}</span>	
 				`);
-				pcex.resizeIframe();
 			},
 			complete: function () {
 				setTimeout(() => {
 					$('#helpful-explanation-submission-feedback').html(``);
-					pcex.resizeIframe();
 				}, 5000);
 			}
 		});
@@ -1794,7 +1787,6 @@ var pcex = {
 			error: function () { },
 			complete: function () {
 				$('#line-explanation-feedback-ui').toggle();
-				pcex.resizeIframe();
 			}
 		});
 	},
@@ -1821,8 +1813,6 @@ var pcex = {
 
 		pcex.animationStepIndex = 0;
 		pcex.animationStarted = false;
-
-		pcex.resizeIframe();
 	},
 
 	animationNext: function () {
@@ -1955,8 +1945,6 @@ var pcex = {
 			} else {
 				$('#animation-next-button').attr('disabled', false);
 			}
-
-			pcex.resizeIframe();
 		}
 	},
 
@@ -2012,8 +2000,6 @@ var pcex = {
 		$('#hint').append(hintContent);
 		$('#hint-div').show();
 		pcex.hideCheckCollapsible();
-
-		pcex.resizeIframe();
 	},
 
 	clearHint: function () {
@@ -2022,8 +2008,6 @@ var pcex = {
 		$('#hint-div').hide();
 
 		pcex.makeCheckButtonEnabledIfTilesFilled();
-
-		pcex.resizeIframe();
 	},
 
 	handleHelpButtonClicked: function (element) {
