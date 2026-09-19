@@ -84,7 +84,9 @@ const getNextButtonContainer = () => {
 };
 
 const isSailMode = () => {
-	return document.body.classList.contains('sail-content') || url('?style-class') === 'sail-content';
+	const styleParam = url('?style-class');
+	return document.body.classList.contains('sail-content') || 
+		Boolean(styleParam && styleParam.split(/\s+/).includes('sail-content'));
 };
 
 const setInlineMarginStart = (el, value) => {

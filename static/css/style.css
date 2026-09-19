@@ -134,9 +134,15 @@
 /* Ensure bordered lines stay aligned with the 5px baseline */
 /* Ensure bordered lines stay aligned with the 5px baseline by compensating for negative margins */
 .line.hljs.animation-highlight,
+.line.animation-highlight,
 .line.hljs.hint-highlight,
+.line.hint-highlight,
 .line.hljs.code-blank-line-error,
-.line.hljs.code-blank-line-correct {
+.line.code-blank-line-error,
+.line.hljs.code-blank-line-correct,
+.line.code-blank-line-correct,
+.line.hljs.tile-dragged,
+.line.tile-dragged {
   padding-left: 5px !important;
 }
 
@@ -144,7 +150,13 @@
   padding-left: 21px !important;
 }
 
+.sail-content .line.hljs.code-blank-line,
+.sail-content .code-blank-line {
+  padding-left: 5px !important;
+}
+
 /* Fix double-padding when a tile is dropped inside a blank line container */
+.line .line,
 .line .line.hljs {
   padding-left: 0px !important;
 }
@@ -657,19 +669,24 @@ h6 {
 }
 
 .sail-content .linenumber {
-  margin-left: 5px;
+  margin-left: 5px !important;
   opacity: 0.25;
+}
+
+[dir="rtl"] .sail-content #div_code .linenumber {
+  margin-left: 5px !important;
+  margin-right: 10px !important;
 }
 
 .sail-content .line {
   line-height: 24px;
   border-bottom: 0.1px lightgray solid;
+  padding-left: 5px !important;
+}
 
-  /* border-bottom: 1px rgb(245, 245, 245) solid; 
-	  border-bottom: 1px rgb(220, 220, 220) dashed;
-  
-	  border-bottom: green 1px dotted;
-	  border-bottom: green 0.2px solid;*/
+.sail-content .line .line,
+.sail-content .line .line.hljs {
+  padding-left: 0px !important;
 }
 
 /*  ---------  */
@@ -730,6 +747,7 @@ h6 {
   margin-top: 3px;
   margin-bottom: 3px;
   border: 2px dashed #428bca;
+  padding-left: 5px !important;
 }
 
 .sail-content #check-result-block.wrong {
@@ -769,6 +787,7 @@ h6 {
   border: 1px dashed #428bca !important;
   border-radius: 8px;
   cursor: move;
+  padding-left: 5px !important;
 }
 
 .sail-content .code-blank-line-error {
