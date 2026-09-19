@@ -83,11 +83,22 @@ const getNextButtonContainer = () => {
 	return $container.length ? $container : $('#next-button').parent();
 };
 
+const isSailMode = () => {
+	return document.body.classList.contains('sail-content') || url('?style-class') === 'sail-content';
+};
+
 const setInlineMarginStart = (el, value) => {
 	const isRtlByComputedStyle = (node) => {
 		if (!(node instanceof HTMLElement)) 
 			return _text('ui.dir') === 'rtl';
-		return window.getComputedStyle(node).direction === 'rtl';
+		if (node.isConnected) {
+			return window.getComputedStyle(node).direction === 'rtl';
+		}
+		const divCode = document.getElementById('div_code');
+		if (divCode) {
+			return window.getComputedStyle(divCode).direction === 'rtl';
+		}
+		return _text('ui.dir') === 'rtl';
 	};
 
 	if (el instanceof HTMLElement) {
@@ -568,6 +579,7 @@ var pcex = {
 		$(lineNumberSpan).addClass('linenumber').html(lineNumber);
 		$(lineContent).prepend(lineNumberSpan);
 
+		const emptyGutterMargin = isSailMode() ? '5px' : (isTileDrop ? '5px' : '21px');
 		var helpButton = null;
 		if (includeIndentButtons || line.commentList.length > 0) {
 			lineContent.appendChild(document.createTextNode(indentedCode));
@@ -589,7 +601,7 @@ var pcex = {
 
 				if (pcex.currentGoal.fullyWorkedOut === false) {
 					$(helpButton).hide();
-					setInlineMarginStart(lineNumberSpan, isTileDrop ? '5px' : '21px');
+					setInlineMarginStart(lineNumberSpan, emptyGutterMargin);
 				} else {
 					setInlineMarginStart(lineNumberSpan, '5px');
 				}
@@ -613,7 +625,7 @@ var pcex = {
 			}
 		} else {
 			lineContent.append(indentedCode);
-			if (!helpButton) setInlineMarginStart(lineNumberSpan, isTileDrop ? '5px' : '21px');
+			if (!helpButton) setInlineMarginStart(lineNumberSpan, emptyGutterMargin);
 		}
 
 		// patch: post-comment line will be highlighted as comment as well
