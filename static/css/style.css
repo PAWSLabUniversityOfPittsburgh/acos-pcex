@@ -571,7 +571,20 @@ h6 {
 
 #animation-next-button,
 #animation-back-button {
+  height: 28px;
+  line-height: 28px;
+  font-size: 0.8rem;
   padding: 0 0.5rem !important;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  vertical-align: middle;
+}
+
+#animation-next-button i,
+#animation-back-button i {
+  font-size: 1.1rem;
+  line-height: inherit;
 }
 
 #line-explanation-provide-feedback-btn,
@@ -859,10 +872,16 @@ h6 {
   /* #bc88d6 ;*/
 }
 
-.sail-content div#explanation-title span {
+.sail-content div#explanation-title > span {
   margin-right: 20px;
+  margin-inline-end: 20px;
   font-weight: bold;
   font-size: large;
+}
+
+[dir="rtl"] .sail-content div#explanation-title > span {
+  margin-right: 0;
+  margin-left: 20px;
 }
 
 .sail-content .animation-highlight {
