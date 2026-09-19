@@ -2179,7 +2179,7 @@ var pcex = {
 	},
 
 	base_domain: function () {
-		return location.href.startsWith('https://') ? 'https://proxy.personalized-learning.org' : 'http://pawscomp2.sis.pitt.edu';
+		return location.href.startsWith('https://') ? 'https://adapt2.sis.pitt.edu' : 'https://pawscomp2.sis.pitt.edu';
 	},
 
 	// reportToUMThroughPCEX: function (umParams) {
