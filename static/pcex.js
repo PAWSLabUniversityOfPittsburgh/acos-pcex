@@ -3,7 +3,7 @@ Query parameters accepted by this program:
  - `locale` (default: 'en'): Sets the UI/content locale for the main activity file.
  - `load`: Loads one or more JSON files from explicit URLs. The value may be a comma- or semicolon-separated list. Each item can optionally be prefixed with `ll:` to bind that file to locale `ll` (for example `en:https://...`); locale-tagged entries take precedence when multiple files are provided.
  - `index`: Starts the activity on the given goal index. When present, the back/next navigation controls are hidden and the selected goal is loaded after the JSON data finishes loading.
- - `style-class`: Adds the provided CSS class to `<body>`. When present, page styling can change without affecting app logic.
+ * - `style-class`: Adds the provided CSS class to `<body>`. When present, page styling can change without affecting app logic (e.g. `dark-theme`, `sail-content`).
  */
 
 (() => { // redirect to acos/pitt/pcex if necessary!
@@ -89,6 +89,12 @@ const isSailMode = () => {
 		Boolean(styleParam && styleParam.split(/\s+/).includes('sail-content'));
 };
 
+const isDarkTheme = () => {
+	const styleParam = url('?style-class');
+	return document.body.classList.contains('dark-theme') || 
+		Boolean(styleParam && styleParam.split(/\s+/).includes('dark-theme'));
+};
+
 const setInlineMarginStart = (el, value) => {
 	const isRtlByComputedStyle = (node) => {
 		if (!(node instanceof HTMLElement)) 
@@ -126,7 +132,7 @@ const setInlineMarginStart = (el, value) => {
 // remove single quote, double quote, and comma
 const cleanName = (name) => name?.replace(/['",]/g, '');
 
-const isWeatPCEX = (name) => name.replace(/__([a-f0-9]{24})-([a-f0-9]{24})_(example|challenge)-([0-9]{1,2})$/, '').replace(/__([a-f0-9]{24})-([a-f0-9]{24})-([0-9]{1,2})$/, '') != name;
+const isWeatPCEX = (name) => Boolean(name && typeof name === 'string' && name.replace(/__([a-f0-9]{24})-([a-f0-9]{24})_(example|challenge)-([0-9]{1,2})$/, '').replace(/__([a-f0-9]{24})-([a-f0-9]{24})-([0-9]{1,2})$/, '') != name);
 
 $(document).ready(function () {
 	applyTranslations();
@@ -174,7 +180,13 @@ $(document).ready(function () {
 	// use specific styles for the page
 	const bodyStyleClass = url('?style-class');
 	if (bodyStyleClass) {
-		document.body.classList.add(bodyStyleClass);
+		const classes = bodyStyleClass.trim().split(/\s+/).filter(Boolean);
+		if (classes.length) {
+			document.body.classList.add(...classes);
+			if (classes.includes('dark-theme')) {
+				document.documentElement.classList.add('dark-theme');
+			}
+		}
 	}
 
 	pcex.parse();
@@ -245,8 +257,10 @@ var pcex = {
 	codeHighlightClass: null,
 	commentString: null,
 	indentPopoverShown: false,
+	eventSequenceNumber: 0,
 	goalSolvedStates: null,
 	goalShowResultStates: null,
+	goalStates: {},
 	lastChallengeState: null,
 
 	currentGoal: null,
@@ -395,6 +409,7 @@ var pcex = {
 		pcex.numberOfGoals = pcex.jsonData.activityGoals.length;
 		pcex.goalSolvedStates = new Array(pcex.numberOfGoals);
 		pcex.goalShowResultStates = new Array(pcex.numberOfGoals);
+		pcex.goalStates = {};
 		pcex.lastChallengeState = null;
 		pcex.setLanguageSettings(pcex.jsonData.language);
 		
@@ -490,6 +505,7 @@ var pcex = {
 			pcex.umApplicationId = 46;
 			pcex.changeStyleToFullyWorkedOut();
 			$('#goal_title').attr('dir', _text('ui.dir')).html(buildGoalTitleHtml('/static/acos-pcex/img/reader-24_white.png', _text('title-example-prefix') + goalName));
+			pcex.trackUserActivity();
 		} else {
 			pcex.activityType = 'ch';
 			pcex.umApplicationId = 47;
@@ -504,15 +520,15 @@ var pcex = {
 			pcex.highlightGoalTitle();
 
 			if (pcex.goalSolvedStates[pcex.currentGoalIndex]) { //Need to show like a fully worked-out example
-				pcex.loadGoalState();
-				pcex.changeStyleToChallenge();
-				pcex.showCorrect();
-
 				if (pcex.goalShowResultStates[pcex.currentGoalIndex]) { //Correct answer is shown by Show me correct answer
 					pcex.activityType = 'ch_not_solved';
 				} else {
 					pcex.activityType = 'ch_solved';
 				}
+				pcex.trackUserActivity();
+				pcex.loadGoalState();
+				pcex.changeStyleToChallenge();
+				pcex.showCorrect();
 			} else {
 				pcex.changeStyleToChallenge();
 				pcex.droppedTiles = new Array(pcex.currentGoal.blankLineList.length);
@@ -536,6 +552,7 @@ var pcex = {
 					$('#tiles').append(tile);
 				});
 
+				pcex.trackUserActivity();
 				pcex.loadGoalState();
 			}
 		}
@@ -543,7 +560,6 @@ var pcex = {
 		pcex.updateNextButtonText();
 
 		$("a[id^='help_']").unbind('click').click(pcex.handleHelpButtonClicked);
-		pcex.trackUserActivity();
 	},
 
 	updateNextButtonText: function () {
@@ -740,10 +756,14 @@ var pcex = {
 		return tilePre;
 	},
 
-	handleTileDrop: function (target, draggable) {
+	handleTileDrop: function (target, draggable, isRestoring) {
 		var tile = $(draggable).data('tile');
 		var blankLineId = $(target).attr('id');
 		var blankLineIndex = $.inArray(blankLineId, pcex.blankLineIDs);
+
+		if (!tile || blankLineIndex === -1) {
+			return;
+		}
 
 		var isDraggedItemAlreadyInAnotherBlankLine = $(draggable).hasClass('tile-dragged') || $(draggable).hasClass('code-blank-line-error');
 
@@ -811,7 +831,9 @@ var pcex = {
 		pcex.clearAllWrongBlankLinesHighlight();
 		pcex.clearHint();
 
-		pcex.trackTileDrop(tile.line, blankLineId, blankLineIndex);
+		if (!isRestoring) {
+			pcex.trackTileDrop(tile.line, blankLineId, blankLineIndex);
+		}
 	},
 
 	makeCheckButtonEnabledIfTilesFilled: function () {
@@ -909,6 +931,8 @@ var pcex = {
 
 	next: function () {
 		if (pcex.currentGoalIndex + 1 < pcex.numberOfGoals) {
+			pcex.saveGoalState();
+
 			$('#back-button').attr('disabled', false).addClass('waves-effect waves-light').show();
 
 			pcex.currentGoalIndex++;
@@ -976,30 +1000,46 @@ var pcex = {
 		pcex.indentedIncorrectBlanLineIDs = [];
 	},
 
-	saveGoalState: function () {
-		pcex.lastChallengeState = {
-			correctBlankLineIDs: pcex.correctBlankLineIDs,
-			droppedTiles: pcex.droppedTiles,
-			droppedTileIndentation: pcex.droppedTileIndentation,
-			numberOfTrials: pcex.numberOfTrials
-		};
+	saveGoalState: function (goalIndex) {
+		var index = (goalIndex !== undefined) ? goalIndex : pcex.currentGoalIndex;
+		if (pcex.currentGoal && !pcex.currentGoal.fullyWorkedOut && pcex.droppedTiles) {
+			pcex.goalStates = pcex.goalStates || {};
+			pcex.goalStates[index] = {
+				correctBlankLineIDs: pcex.correctBlankLineIDs ? pcex.correctBlankLineIDs.slice() : [],
+				droppedTiles: pcex.droppedTiles ? pcex.droppedTiles.slice() : [],
+				droppedTileIndentation: pcex.droppedTileIndentation ? pcex.droppedTileIndentation.slice() : [],
+				numberOfTrials: pcex.numberOfTrials
+			};
+		}
 	},
 
-	loadGoalState: function () {
-		if (pcex.lastChallengeState) {
-			if (!pcex.goalSolvedStates[pcex.currentGoalIndex]) { //Need to handle if the challenge is not already solved
-				pcex.droppedTileIndentation = pcex.lastChallengeState.droppedTileIndentation;
-				pcex.numberOfTrials = pcex.lastChallengeState.numberOfTrials;
+	loadGoalState: function (goalIndex) {
+		var index = (goalIndex !== undefined) ? goalIndex : pcex.currentGoalIndex;
+		var state = pcex.goalStates ? pcex.goalStates[index] : null;
+		if (!state && pcex.lastChallengeState) {
+			state = pcex.lastChallengeState;
+		}
 
-				$.each(pcex.lastChallengeState.droppedTiles, function (i, droppedTile) {
-					if (droppedTile) {
-						pcex.handleTileDrop($('#' + pcex.blankLineIDs[i]), $('#tile_' + droppedTile.id));
-					}
-				});
+		if (state) {
+			if (!pcex.goalSolvedStates[index]) { //Need to handle if the challenge is not already solved
+				pcex.droppedTileIndentation = state.droppedTileIndentation ? state.droppedTileIndentation.slice() : [];
+				pcex.numberOfTrials = state.numberOfTrials || 0;
+
+				if (state.droppedTiles) {
+					$.each(state.droppedTiles, function (i, droppedTile) {
+						if (droppedTile && pcex.blankLineIDs && pcex.blankLineIDs[i]) {
+							var $target = $('#' + pcex.blankLineIDs[i]);
+							var $draggable = $('#tile_' + droppedTile.id);
+							if ($target.length && $draggable.length) {
+								pcex.handleTileDrop($target, $draggable, true);
+							}
+						}
+					});
+				}
 			}
 
 			//This should be done after handling tile drops previously not to reset classes of blank lines
-			pcex.correctBlankLineIDs = pcex.lastChallengeState.correctBlankLineIDs;
+			pcex.correctBlankLineIDs = state.correctBlankLineIDs ? state.correctBlankLineIDs.slice() : [];
 			pcex.higlightCorrectBlankLines(pcex.correctBlankLineIDs);
 		}
 
@@ -2083,19 +2123,23 @@ var pcex = {
 		// (as defined in its JSON file) to track overall progress,
 		// since it is the one registered in the course.
 
-		const mainActivityGoal = pcex.jsonDataAll[
-			url('?locale') || 'en'
-		].activityGoals[pcex.currentGoalIndex];
+		const currentLocale = url('?locale') || 'en';
+		const localeData = (pcex.jsonDataAll && pcex.jsonDataAll[currentLocale])
+			? pcex.jsonDataAll[currentLocale]
+			: pcex.jsonData;
+		const mainActivityGoal = (localeData && localeData.activityGoals && localeData.activityGoals[pcex.currentGoalIndex])
+			? localeData.activityGoals[pcex.currentGoalIndex]
+			: (pcex.currentGoal || {});
 
 		var trackingData = {
 			tracking_id: uuid.v4(),
-			activity_set_name: cleanName(mainActivityGoal.activityName),
-			locale_activity_set_name: cleanName(pcex.currentGoal.activityName),
+			activity_set_name: cleanName(mainActivityGoal.activityName || (pcex.currentGoal && pcex.currentGoal.activityName) || ''),
+			locale_activity_set_name: cleanName((pcex.currentGoal && pcex.currentGoal.activityName) || ''),
 			activity_type: pcex.activityType,
 			um_application_id: pcex.umApplicationId,
 			// weat pcex content uses goal names instead of filename as the 'goal name'
-			goal_name: isWeatPCEX(mainActivityGoal.name) ? cleanName(mainActivityGoal.name) : mainActivityGoal.fileName,
-			locale_goal_name: isWeatPCEX(pcex.currentGoal.name) ? cleanName(pcex.currentGoal.name) : pcex.currentGoal.fileName,
+			goal_name: isWeatPCEX(mainActivityGoal.name) ? cleanName(mainActivityGoal.name) : (mainActivityGoal.fileName || (pcex.currentGoal && pcex.currentGoal.fileName) || ''),
+			locale_goal_name: isWeatPCEX(pcex.currentGoal && pcex.currentGoal.name) ? cleanName(pcex.currentGoal.name) : ((pcex.currentGoal && pcex.currentGoal.fileName) || ''),
 			goal_index: pcex.currentGoalIndex,
 			tiles: pcex.getTilesTrackingInfo()
 		}
@@ -2184,8 +2228,10 @@ var pcex = {
 	},
 
 	reportEvent: function (event_type, trackingData) {
-		event_data = {
+		const event_data = {
 			event_type,
+			client_timestamp: new Date().toISOString(),
+			seq: ++pcex.eventSequenceNumber,
 			...pcex.tracking_data,
 			...trackingData,
 		};

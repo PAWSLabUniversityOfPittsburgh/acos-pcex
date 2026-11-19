@@ -1,0 +1,243 @@
+.sail-content .line.hljs.code-blank-line,
+.sail-content .code-blank-line {
+  padding-left: 5px !important;
+}
+
+/*
+.sail-content .stepline:hover {
+    background-color: rgba(0, 0, 0, 0.04) !important;
+}
+
+.sail-content .line:hover {
+    background-color: lightyellow;
+}
+*/
+
+.sail-content .btn-floating {
+  float: right;
+  width: 19px;
+  height: 19px;
+  line-height: 19px;
+  margin-top: 2px;
+  background-color: rgb(47, 127, 111);
+}
+
+.sail-content .stepline {
+  margin-top: 0px;
+  padding-top: 12px;
+  /* or margin-top based on the background color*/
+  margin-bottom: 0px;
+
+  /* background-color: rgb(255, 255, 255); */
+}
+
+.sail-content .linenumber {
+  margin-left: 5px !important;
+  opacity: 0.25;
+}
+
+[dir="rtl"] .sail-content #div_code .linenumber {
+  margin-left: 5px !important;
+  margin-right: 10px !important;
+}
+
+.sail-content .line {
+  line-height: 24px;
+  border-bottom: 0.1px lightgray solid;
+  padding-left: 5px !important;
+}
+
+.sail-content .line .line,
+.sail-content .line .line.hljs {
+  padding-left: 0px !important;
+}
+
+/*  ---------  */
+
+.sail-content .primary-color,
+.sail-content .btn-primary {
+  /* background-color: #4285F4 !important; */
+  /* background-color: rgb(66 133 244 / 75%); */
+  /*. 4285f4 */
+  background-color: rgb(66 133 244 / 85%) !important;
+}
+
+.sail-content .secondary-color {
+  background-color: rgb(170 102 204 / 85%) !important;
+}
+
+/* 
+  .primary-challenge-color, .btn-challenge  {
+	  background-color: rgb(255 136 103);
+  }
+  */
+
+.sail-content .primary-challenge-color {
+  background-color: rgb(37 102 208) !important;
+}
+
+.sail-content .btn-challenge {
+  background-color: rgb(37 102 208) !important;
+  background-color: rgb(47 127 111) !important;
+  background-color: rgba(19, 44, 62, 0.6) !important;
+}
+
+.sail-content #check-button.btn-challenge {
+  background-color: rgb(47 127 111) !important;
+}
+
+.sail-content #goal-header #next-button {
+  background-color: rgb(66 133 244);
+  background-color: rgb(47 127 111);
+  background-color: rgba(19, 44, 62, 0.6) !important;
+}
+
+.sail-content #goal-header #next-button:hover {
+  background-color: #ff5722;
+}
+
+/*
+  .btn-challenge:hover {
+	  background-color: rgb(66 133 244);
+  }
+  */
+
+.sail-content .btn-challenge {
+  float: right;
+}
+
+.sail-content .code-blank-line {
+  margin-top: 3px;
+  margin-bottom: 3px;
+  border: 2px dashed #428bca;
+  padding-left: 5px !important;
+}
+
+.sail-content #check-result-block.wrong {
+  background-color: #fddfdf;
+  /* #ff8a80; */
+}
+
+.sail-content #check-result-block.correct {
+  background-color: #f0fdfa;
+  /* #64ffda; */
+  border: 2px #26a69a solid;
+}
+
+.sail-content #checkCollapsible #clear-button {
+  /* background-color: #C00; */
+  background-color: #d4f7c2 !important;
+  color: #292b2c !important;
+}
+
+.sail-content #checkCollapsible #show-correct-button {
+  /* background-color: #00C851; */
+  background-color: #c2f7ea !important;
+  color: black !important;
+}
+
+.sail-content #checkCollapsible #show-hint-button,
+.sail-content #hint-div .hint-title,
+.sail-content #close-hint-button {
+  /* background-color: #F80; */
+  background-color: #ffe490 !important;
+  color: #292b2c !important;
+}
+
+.sail-content .code-blank-line {
+  margin-top: 3px !important;
+  margin-bottom: 3px !important;
+  border: 1px dashed #428bca !important;
+  border-radius: 8px;
+  cursor: move;
+  padding-left: 5px !important;
+}
+
+.sail-content .code-blank-line-error {
+  background-color: #fddfdf;
+}
+
+.sail-content .code-blank-line-correct {
+  background: #c2f7ea;
+  /* #64ffda;*/
+  border: 1px dashed #1de9b6;
+  border-radius: 8px;
+  border: 1px dashed #428bca;
+
+  /* alternative * /
+	  color: #2881cf;
+	  margin-top: 2px;
+	  margin-bottom: 2px;
+	  background-color: #c2f7ea42;
+		  */
+}
+
+.sail-content .hint-highlight {
+  background-color: #ffe490;
+  border-radius: 8px;
+  border: 1px solid #ff8800;
+}
+
+.sail-content #check-result-block.wrong {
+  background-color: #fddfdf;
+  /* background-color: #fff; */
+  border: 2px orangered solid;
+  /* background-color: whitesmoke; */
+}
+
+.sail-content h5#check-result-title {
+  padding-bottom: 8px;
+}
+
+.sail-content #check-result-block.wrong h5#check-result-title {
+  border-bottom: 2px orangered solid;
+  color: red;
+}
+
+.sail-content #check-result-block.correct h5#check-result-title {
+  border-bottom: 2px #26a69a solid;
+  color: #26a69a;
+}
+
+.sail-content p#check-result-message div span a {
+  color: rgb(2, 117, 216) !important;
+  border: 0px solid blue !important;
+  font-weight: bold;
+}
+
+.sail-content #tiles {
+  background: whitesmoke;
+}
+
+.sail-content div#explanation a {
+  background-color: #c090da;
+}
+
+.sail-content div#explanation a[disabled] {
+  background-color: #dfdfdf;
+}
+
+.sail-content div#explanation a.btn-info:hover {
+  background-color: #a6c;
+  /* #bc88d6 ;*/
+}
+
+.sail-content div#explanation-title > span {
+  margin-right: 20px;
+  margin-inline-end: 20px;
+  font-weight: bold;
+  font-size: large;
+}
+
+[dir="rtl"] .sail-content div#explanation-title > span {
+  margin-right: 0;
+  margin-left: 20px;
+}
+
+.sail-content .animation-highlight {
+  border-radius: 0px;
+  border: 1px dashed green;
+  /* border: 0px dashed green; */
+  background-color: #fffa90;
+  _ackground-color: rgba(170, 102, 214, 0.25);
+}

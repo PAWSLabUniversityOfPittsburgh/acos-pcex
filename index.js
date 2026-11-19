@@ -21,6 +21,20 @@ ACOS_PCEX.addToHead = function (params) {
     <link href="/static/acos-pcex/css/jquery-ui.min.css" rel="stylesheet">
     <link href="/static/acos-pcex/css/vs.css" rel="stylesheet">
     <link href="/static/acos-pcex/css/style.css?v=201711032305" rel="stylesheet">
+    <link href="/static/acos-pcex/css/sail-theme.css" rel="stylesheet">
+    <link href="/static/acos-pcex/css/dark-theme.css" rel="stylesheet">
+
+    <script>
+      (function() {
+        var m = window.location.search.match(/[?&]style-class=([^&]+)/);
+        if (m) {
+          var classes = decodeURIComponent(m[1].replace(/\\+/g, ' ')).split(/\\s+/);
+          for (var i = 0; i < classes.length; i++) {
+            if (classes[i]) document.documentElement.classList.add(classes[i]);
+          }
+        }
+      })();
+    </script>
   `;
 };
 

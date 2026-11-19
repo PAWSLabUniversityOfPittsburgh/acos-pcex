@@ -1,0 +1,214 @@
+html.dark-theme,
+body.dark-theme,
+.dark-theme {
+  --bg: rgb(30, 30, 30);
+  --surface: #252526;
+  --raised: #2d2d30;
+  --text: #e6e6e6;
+
+  --primary: #0e60e9;
+  --primary-h: #1d6df2;
+  --secondary: #9643c0;
+  --secondary-h: #9f53c6;
+  --warning: #a25600;
+  --warning-h: #b25f00;
+  --success: #007b32;
+  --success-h: #008737;
+  --teal: #1b766d;
+  --teal-h: #1e8279;
+  --teal-focus: #196b63;
+}
+
+html.dark-theme,
+body.dark-theme,
+.dark-theme .container-fluid {
+  background-color: var(--bg);
+  color: var(--text);
+}
+
+.dark-theme pre {
+  color: var(--text); /* Bootstrap sets pre to dark grey */
+}
+
+.dark-theme .card {
+  background-color: var(--surface);
+  color: var(--text);
+}
+
+/* Light highlight backgrounds -> dark equivalents (same hue, so meaning is kept) */
+.dark-theme .code-blank-line-correct,
+.dark-theme #check-result-block.correct {
+  background: #123d31;
+}
+
+.dark-theme .code-blank-line-error,
+.dark-theme #check-result-block.wrong {
+  background: #451f1f;
+}
+
+.dark-theme .tile-dragged {
+  background: #1d3a57;
+}
+
+.dark-theme .tile-blank-line-highlight,
+.dark-theme .animation-highlight,
+.dark-theme .hovered,
+.dark-theme .hovered-tile {
+  background: #3d3b10;
+}
+
+.dark-theme .hint-highlight {
+  background: #44310a;
+}
+
+.dark-theme .stepline {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+/* Modal (materialize and style.css use near-white) */
+.dark-theme .modal,
+.dark-theme .modal-content,
+.dark-theme .modal .modal-footer,
+.dark-theme .modal-footer {
+  background-color: var(--raised);
+}
+
+/* Popovers inherit the page text color, so they need a dark background too */
+.dark-theme .webui-popover,
+.dark-theme .webui-popover-title {
+  background-color: var(--raised);
+  color: var(--text);
+}
+
+.dark-theme .webui-popover-inner .close {
+  color: var(--text);
+  text-shadow: none;
+  opacity: 0.85;
+}
+
+/* Syntax highlighting: vs.css colors are for light backgrounds */
+.dark-theme .hljs {
+  color: #d4d4d4;
+}
+
+.dark-theme .hljs-comment,
+.dark-theme .hljs-quote,
+.dark-theme .hljs-variable {
+  color: #8fbf7a;
+}
+
+.dark-theme .hljs-keyword,
+.dark-theme .hljs-selector-tag,
+.dark-theme .hljs-built_in,
+.dark-theme .hljs-name,
+.dark-theme .hljs-tag {
+  color: #7dbbf6;
+}
+
+.dark-theme .hljs-string,
+.dark-theme .hljs-title,
+.dark-theme .hljs-section,
+.dark-theme .hljs-attribute,
+.dark-theme .hljs-literal,
+.dark-theme .hljs-template-tag,
+.dark-theme .hljs-template-variable,
+.dark-theme .hljs-type,
+.dark-theme .hljs-addition {
+  color: #e8a98c;
+}
+
+.dark-theme .hljs-deletion,
+.dark-theme .hljs-selector-attr,
+.dark-theme .hljs-selector-pseudo,
+.dark-theme .hljs-meta {
+  color: #4ec9b0;
+}
+
+.dark-theme .hljs-doctag {
+  color: #b0b0b0;
+}
+
+.dark-theme .hljs-attr {
+  color: #ff9b8f;
+}
+
+.dark-theme .hljs-symbol,
+.dark-theme .hljs-bullet,
+.dark-theme .hljs-link {
+  color: #5ccfee;
+}
+
+/* Default teal buttons (Explain / Previous / Next) */
+.dark-theme #start-animation-button:not([disabled]):not(.disabled),
+.dark-theme #animation-back-button:not([disabled]):not(.disabled),
+.dark-theme #animation-next-button:not([disabled]):not(.disabled) {
+  background-color: var(--teal);
+}
+
+.dark-theme #start-animation-button:not([disabled]):not(.disabled):hover,
+.dark-theme #animation-back-button:not([disabled]):not(.disabled):hover,
+.dark-theme #animation-next-button:not([disabled]):not(.disabled):hover {
+  background-color: var(--teal-h);
+}
+
+.dark-theme #start-animation-button:not([disabled]):not(.disabled):focus,
+.dark-theme #animation-back-button:not([disabled]):not(.disabled):focus,
+.dark-theme #animation-next-button:not([disabled]):not(.disabled):focus {
+  background-color: var(--teal-focus);
+}
+
+.dark-theme .primary-color,
+.dark-theme .btn-primary {
+  background-color: var(--primary) !important;
+}
+
+.dark-theme .btn-primary:hover,
+.dark-theme .btn-primary:focus,
+.dark-theme .btn-primary:active {
+  background-color: var(--primary-h) !important;
+}
+
+.dark-theme .secondary-color,
+.dark-theme .btn-secondary {
+  background-color: var(--secondary) !important;
+}
+
+.dark-theme .btn-secondary:hover,
+.dark-theme .btn-secondary:focus,
+.dark-theme .btn-secondary:active {
+  background-color: var(--secondary-h) !important;
+}
+
+.dark-theme .hint-title,
+.dark-theme .btn-warning {
+  background-color: var(--warning) !important;
+}
+
+.dark-theme .btn-warning:hover,
+.dark-theme .btn-warning:focus {
+  background-color: var(--warning-h) !important;
+}
+
+.dark-theme .btn-success {
+  background-color: var(--success) !important;
+}
+
+.dark-theme .btn-success:hover,
+.dark-theme .btn-success:focus,
+.dark-theme .btn-success:active {
+  background-color: var(--success-h) !important;
+}
+
+.dark-theme .input_text {
+  color: #7cb7ff;
+}
+
+.dark-theme .linenumber {
+  opacity: 0.75;
+}
+
+/* Sail mode compatibility */
+.dark-theme.sail-content #tiles,
+.dark-theme .sail-content #tiles {
+  background: var(--surface);
+}
